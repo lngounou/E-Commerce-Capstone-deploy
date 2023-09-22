@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
 import Login from './components/Login';
 
 function App() {
@@ -7,8 +6,7 @@ function App() {
 
   return (
     <div className='App'>
-        <h1>Boilerplate</h1>
-        <img id='comp-img' src='./computer.png'></img>
+        <h1>E-Commerce Site</h1>
         <p>Replace the starter code in this template with something cool</p>
         <Login />
     </div>
