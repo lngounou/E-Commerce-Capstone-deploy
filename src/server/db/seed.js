@@ -2,7 +2,8 @@ const db = require('./client');
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
 const bcrypt = require('bcrypt');
-const faker = require('faker');
+// import { faker } from '@faker-js/faker';
+const { faker } = require('@faker-js/faker');
 
 const SALT_COUNT = 10;
 
@@ -10,9 +11,9 @@ const generateUsers = (count) => {
   const users = [];
   for (let i = 0; i < count; i++) {
     const user = {
-      // name: faker.name.findName(),
-      // email: faker.internet.email(),
-      // password: faker.internet.password(),
+      name: faker.person.fullName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
     };
     users.push(user);
   }
@@ -60,6 +61,13 @@ const createTables = async () => {
           description TEXT,
           price DECIMAL(10, 2)
         );
+
+        CREATE TABLE IF NOT EXISTS shopping_carts (
+          id SERIAL PRIMARY KEY,
+          user_id INT REFERENCES users(id),
+          created_at TIMESTAMP DEFAULT NOW(),
+          updated_at TIMESTAMP DEFAULT NOW(),
+        );
       `);
     }
     catch(err) {
@@ -93,7 +101,7 @@ const insertProducts = async () => {
 const createShoppingCart = async (userId) => {
   try {
     const { rows: [cart] } = await db.query(`
-      INSERT INTO carts(user_id)
+      INSERT INTO shopping_carts(user_id)
       VALUES($1)
       RETURNING *`, [userId]);
     return cart;
@@ -114,36 +122,35 @@ const createCartItems = async (cartId, productId, quantity) => {
   }
 };
 
-// const seedDatabase = async () => {
-//   try {
-//       db.connect();
-//       await dropTables();
-//       await createTables();
-//       await insertUsers();
-//       await insertProducts();
+const getRandomProductId = () => {
+  return faker.commerce.productName();
+};
 
-//   for (const user of users) {
-//     const cart = await createShoppingCart(user.id);
-//     for (let i = 0; i < 5; i++) {
-//       const randomProduct = getRandomProductId();
-//       const quantity = getRandomQuantity();
-//       await createCartItems(cart.id, randomProduct, quantity);
-//     }
-//   }
-// };
+const getRandomQuantity = () => {
+  return faker.number.binary({ min: 1, max: 10 });
+};
 
 const seedDatabase = async () => {
-    try {
-        db.connect();
-        await dropTables();
-        await createTables();
-        await insertUsers();
-        await insertProducts();
+  try {
+      db.connect();
+      await dropTables();
+      await createTables();
+      await insertUsers();
+      await insertProducts();
+
+  for (const user of users) {
+    const cart = await createShoppingCart(user.id);
+    for (let i = 0; i < 5; i++) {
+      const randomProduct = getRandomProductId();
+      const quantity = getRandomQuantity();
+      await createCartItems(cart.id, randomProduct, quantity);
     }
-    catch (err) {
+  }
+
+  console.log('Seed data inserted successfully.');
+    } catch (err) {
         console.error('Error seeding database:', err);
-    }
-    finally {
+    } finally {
         db.end()
     }
 };

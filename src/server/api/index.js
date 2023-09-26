@@ -16,7 +16,7 @@ apiRouter.use(async (req, res, next) => {
     const token = auth.substring(7);
     
     try {
-      const decodedToken = jwt.verify(token, 'somesecretvalue');
+      const decodedToken = jwt.verify(token, JWT_SECRET);
       req.user = decodedToken;
       next();
     } catch (error) {
@@ -34,8 +34,14 @@ apiRouter.use(async (req, res, next) => {
 const usersRouter = require('./users');
 apiRouter.use('/users', usersRouter);
 
+const productsRouter = require('./products');
+apiRouter.use('/products', productsRouter);
+
+const cartRouter = require('./cart');
+apiRouter.use('/cart', cartRouter);
+
 apiRouter.use((err, req, res, next) => {
-    res.status(500).send(err)
-  })
+    res.status(500).json({ error: err.message });
+  });
 
 module.exports = apiRouter;
