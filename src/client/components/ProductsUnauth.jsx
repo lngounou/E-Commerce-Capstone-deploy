@@ -36,8 +36,11 @@ export default function AllProducts() {
                 <h2>Price: {product.price}</h2>
                 <h3>Location: {product.location}</h3>
                 <h3>Delivery: {product.willDeliver}</h3>
+                <button></button>
             </div> )
         }) : null}
         </>
         )
 }
+
+//Incorporate the ID passing in the useNavigate
