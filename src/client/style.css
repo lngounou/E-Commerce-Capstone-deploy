@@ -1,9 +1,16 @@
+#root {
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  font-family: 'Comfortaa', cursive;
+  background-image: url(https://www.justinecelina.com/wp-content/uploads/2020/04/justinecelina_digital-blooms-april-2020-free-desktop-wallpaper-scaled.jpg);
+  background-size: 100%;
+}
+
 .App {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh; 
+  height: 200vh; 
 }
 
 .App-header {
@@ -11,8 +18,31 @@
   font-size: 24px;
 }
 
-#comp-img{
-  width: 250px;
+.all-products-container {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid navy;
+  background-color: rgb(106, 106, 145);
+  height: 30vh;
 }
 
+.navbar {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  background-color:rgb(1, 92, 42);
+  list-style: none;
+  margin-top: 0;
+  height: 8vh;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 2em;
+}
+
+.brighttext {
+  color: azure;
+}
 /* Add more styling for other elements if needed */
