@@ -2,8 +2,8 @@ const db = require('./client');
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
 const bcrypt = require('bcrypt');
-// import { faker } from '@faker-js/faker';
 const { faker } = require('@faker-js/faker');
+const { createCart, createCartItems } = require('./cart');
 
 const SALT_COUNT = 10;
 
@@ -39,7 +39,7 @@ const products = generateProducts(30);
 
 const dropTables = async () => {
     try {
-        await db.query('DROP TABLE IF EXISTS users, products CASCADE');
+        await db.query('DROP TABLE IF EXISTS users, products, cart_items, shopping_carts CASCADE');
     } catch(err) {
         console.error('Error dropping tables:', err);
     }
@@ -62,12 +62,19 @@ const createTables = async () => {
           price DECIMAL(10, 2)
         );
 
-        CREATE TABLE IF NOT EXISTS shopping_carts (
+        CREATE TABLE IF NOT EXISTS shopping_carts(
           id SERIAL PRIMARY KEY,
           user_id INT REFERENCES users(id),
           created_at TIMESTAMP DEFAULT NOW(),
-          updated_at TIMESTAMP DEFAULT NOW(),
+          updated_at TIMESTAMP DEFAULT NOW()
         );
+
+        CREATE TABLE IF NOT EXISTS cart_items (
+        id SERIAL PRIMARY KEY,
+        cart_id INT REFERENCES shopping_carts(id),
+        product_id INT REFERENCES products(id),
+        quantity INT
+      );
       `);
     }
     catch(err) {
@@ -98,32 +105,16 @@ const insertProducts = async () => {
   }
 };
 
-const createShoppingCart = async (userId) => {
+const getRandomProductId = async () => {
   try {
-    const { rows: [cart] } = await db.query(`
-      INSERT INTO shopping_carts(user_id)
-      VALUES($1)
-      RETURNING *`, [userId]);
-    return cart;
+    const result = await db.query('SELECT id FROM products ORDER BY random() LIMIT 1');
+    if (result.rows.length === 0) {
+      throw new Error('No products found.');
+    }
+    return result.rows[0].id;
   } catch (err) {
-    console.error('Error creating shopping cart:', err);
-    throw err;
+    console.error('Error getting random product ID:', err);
   }
-};
-
-const createCartItems = async (cartId, productId, quantity) => {
-  try {
-    await db.query(`
-      INSERT INTO cart_items(cart_id, product_id, quantity)
-      VALUES($1, $2, $3)`, [cartId, productId, quantity]);
-  } catch (err) {
-    console.error('Error creating cart item:', err);
-    throw err;
-  }
-};
-
-const getRandomProductId = () => {
-  return faker.commerce.productName();
 };
 
 const getRandomQuantity = () => {
@@ -139,9 +130,9 @@ const seedDatabase = async () => {
       await insertProducts();
 
   for (const user of users) {
-    const cart = await createShoppingCart(user.id);
+    const cart = await createCart(user.id);
     for (let i = 0; i < 5; i++) {
-      const randomProduct = getRandomProductId();
+      const randomProduct = await getRandomProductId();
       const quantity = getRandomQuantity();
       await createCartItems(cart.id, randomProduct, quantity);
     }

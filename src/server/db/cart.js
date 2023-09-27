@@ -11,7 +11,7 @@ const pool = new Pool({
 
 const createCart = async (userId) => {
   const query = {
-    text: 'INSERT INTO carts(user_id) VALUES($1) RETURNING *',
+    text: 'INSERT INTO shopping_carts(user_id) VALUES($1) RETURNING *',
     values: [userId],
   };
 
@@ -22,6 +22,17 @@ const createCart = async (userId) => {
     throw error;
   }
 };
+
+const createCartItems = async (cartId, productId, quantity) => {
+    try {
+      await pool.query(`
+        INSERT INTO cart_items(cart_id, product_id, quantity)
+        VALUES($1, $2, $3)`, [cartId, productId, quantity]);
+    } catch (err) {
+      console.error('Error creating cart item:', err);
+      throw err;
+    }
+  };
 
 
 const getCart = async (userId) => {
@@ -68,6 +79,7 @@ const removeFromCart = async (userId, productId) => {
 
 module.exports = {
   createCart,
+  createCartItems,
   getCart,
   addToCart,
   removeFromCart,
