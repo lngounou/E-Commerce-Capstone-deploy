@@ -12,13 +12,12 @@ export default function AllProducts() {
     useEffect(() => {
         async function fetchAllProducts() {
             try {
-                const response = await fetch(`URL/products`)
+                const response = await fetch('http://localhost:3000/api/products/')
                 const result = await response.json();
-                console.log(result);
                 setProducts(result);
                 return result
             } catch (error) {
-                console.error(error);
+                console.error(error)
               }
             }
             fetchAllProducts();
@@ -31,12 +30,9 @@ export default function AllProducts() {
         {products ? 
         products.map((product) => { 
             return ( <div key={product._id}>
-                <h2>Title: {product.title}</h2>
+                <h2>Title: {product.name}</h2>
                 <h2>Description: {product.description}</h2>
                 <h2>Price: {product.price}</h2>
-                <h3>Location: {product.location}</h3>
-                <h3>Delivery: {product.willDeliver}</h3>
-                <button></button>
             </div> )
         }) : null}
         </>
