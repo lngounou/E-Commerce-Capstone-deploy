@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken');
 
 const volleyball = require('volleyball')
 apiRouter.use(volleyball)
-
+var cors = require('cors')
+apiRouter.use(cors());
 
 apiRouter.use(async (req, res, next) => {
   const auth = req.header('Authorization');

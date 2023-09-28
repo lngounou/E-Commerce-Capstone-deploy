@@ -1,6 +1,6 @@
 const express = require('express');
 const cartRouter = express.Router();
-
+const { authenticateToken } = require('./utils');
 
 const {
   createCart,

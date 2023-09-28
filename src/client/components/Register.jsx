@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Register () {
 
-    const [email, setEmail] = useState("");
+  const [name, setName] = useState("");  
+  const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [emailError, setEmailError] = useState(null);
@@ -34,13 +35,15 @@ export default function Register () {
 //Need URL below where it says INSERT URL HERE
     try {
         const response = await fetch(
-          `INSERT URL HERE`, {
+          'http://localhost:3000/api/users/register', {
           method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'yes'
           },
           body: JSON.stringify({
             user: {
+              name: name,
               email: email,
               password: password
             }
@@ -52,8 +55,7 @@ export default function Register () {
     
         return result
       } catch (err) {
-        console.error(err);
-        
+        console.error(err)
       }    
 };
 
@@ -67,6 +69,16 @@ return(
         onClick={() => {
             setEmail(email)
         }}>
+<label>
+    Name:{""}
+    <input 
+        placeholder='Enter Name'
+        value = {name}
+        
+         onChange={(e)=> 
+        setName(e.target.value)} />
+</label>
+
 <label>
     Email:{""}
     <input 
