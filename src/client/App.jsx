@@ -5,6 +5,7 @@ import Login from './components/Login';
 import { Routes, Route } from "react-router-dom";
 import Navbar from './components/Navbar';
 import Home from './components/Home';
+import AllProducts from './components/ProductsUnauth';
 
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path ='/addproduct' element= {<Login />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/products' element={<AllProducts />} />
         <Route path='/product/:id' element={<Login />} />
 
         </Routes>
