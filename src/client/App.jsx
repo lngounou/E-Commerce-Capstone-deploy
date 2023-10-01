@@ -2,10 +2,11 @@ import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import Register from './components/Register';
 import Login from './components/Login';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import AllProducts from './components/ProductsUnauth';
+import SingleProduct from './components/SingleProduct';
 
 
 
@@ -24,7 +25,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/products' element={<AllProducts />} />
-        <Route path='/product/:id' element={<Login />} />
+        <Route path='/products/:productId' element={<SingleProduct />} />
 
         </Routes>
     </div>

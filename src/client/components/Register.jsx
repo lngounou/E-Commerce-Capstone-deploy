@@ -32,8 +32,8 @@ export default function Register () {
           } else {
             setPasswordError(null);
           }
-//Need URL below where it says INSERT URL HERE
-    try {
+
+      try {
         const response = await fetch(
           'http://localhost:3000/api/users/register', {
           method: "POST",

@@ -1,21 +1,20 @@
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 
 export default function SingleProduct() {
 
-    const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState([]);
     const auth = sessionStorage.getItem('token');
-
-//UPDATE URL BELOW where it says URL/products
+    const { productId } = useParams();
 
     useEffect(() => {
         async function fetchSingleProduct() {
             try {
-                const response = await fetch(`URL/products`)
+                const response = await fetch(`http://localhost:3000/api/products/${productId}`)
                 const result = await response.json();
-                console.log(result);
-                setProducts(result);
+                setProduct(result);
                 return result
             } catch (error) {
                 console.error(error);
@@ -24,22 +23,26 @@ export default function SingleProduct() {
             fetchSingleProduct();
         }, [])
 
-//UPDATE PRODUCT KEYS BELOW BASED ON AVAILABLE FAKE DATA
-
         return (
             <>
-        {products ? 
-        products.map((product) => { 
-            return ( <div key={product._id}>
-                <h2>Title: {product.title}</h2>
+            <div key={productId}>
+                <h2>Title: {product.name}</h2>
                 <h2>Description: {product.description}</h2>
                 <h2>Price: {product.price}</h2>
-                <h3>Location: {product.location}</h3>
-                <h3>Delivery: {product.willDeliver}</h3>
-            </div> )
-        }) : null}
-        </>
+            </div>
+            </>
         )
 }
 
-//Incorporate the ID passing in the useNavigate
+// return (
+//     <>
+// {products ? 
+// products.map((product) => { 
+//     return ( <div key={product.id}>
+//         <h2>Title: {product.name}</h2>
+//         <h2>Description: {product.description}</h2>
+//         <h2>Price: {product.price}</h2>
+//     </div> )
+// }) : null}
+// </>
+// )
