@@ -42,11 +42,9 @@ export default function Register () {
             'Access-Control-Allow-Origin': 'yes'
           },
           body: JSON.stringify({
-            user: {
-              name: name,
-              email: email,
-              password: password
-            }
+              name,
+              email,
+              password
           })})
         ;
         const result = await response.json();

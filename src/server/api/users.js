@@ -77,7 +77,7 @@ usersRouter.post('/login', async (req, res, next) => {
 });
 
 usersRouter.post('/register', async (req, res, next) => {
-    const { name, email, password } = req.body.user;
+    const { name, email, password } = req.body;
     console.log(name, email, password);
 
     try {
