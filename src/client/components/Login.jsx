@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -17,7 +20,7 @@ const Login = () => {
 
   const login = async() => {
     try {
-        const response = await fetch('http://localhost:5173/api/users/login', {
+        const response = await fetch('http://localhost:3000/api/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -32,6 +35,9 @@ const Login = () => {
         if(!response.ok) {
           throw(result)
         }
+        sessionStorage.setItem('token', result.token)
+        sessionStorage.getItem('token', result.token)  
+        navigate('/products/');
         setEmail('');
         setPassword('');
     } catch (err) {

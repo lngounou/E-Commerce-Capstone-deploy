@@ -8,14 +8,14 @@ const Navbar = () => {
     const navigate = useNavigate();
     const logout = () => {
         sessionStorage.clear();
-        navigate('/Register')
-    }
+        navigate('/login')
+      }
 
     if (auth) {
         return (
             <div className='navbar brighttext'>
                 <div><Link to={'/products'}>Products</Link></div>
-                <div><Link onClick={logout} to='/'>Log Out</Link></div>
+                <div><Link onClick={logout} to='/login'>Log Out</Link></div>
             </div>
         )
     } else {
