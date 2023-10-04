@@ -29,6 +29,7 @@ const generateProducts = (count) => {
       name: faker.commerce.productName(),
       description: faker.lorem.sentence(),
       price: faker.commerce.price(),
+      img_url: faker.image.urlLoremFlickr(),
     };
     products.push(product);
   }
@@ -59,7 +60,8 @@ const createTables = async () => {
           id SERIAL PRIMARY KEY,
           name VARCHAR(255),
           description TEXT,
-          price DECIMAL(10, 2)
+          price DECIMAL(10, 2),
+          img_url VARCHAR(255) --
         );
 
         CREATE TABLE IF NOT EXISTS shopping_carts(
