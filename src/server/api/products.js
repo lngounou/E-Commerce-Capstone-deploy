@@ -36,9 +36,9 @@ productsRouter.get('/:productId', async (req, res, next) => {
 
 
 productsRouter.post('/', authenticateToken, async (req, res, next) => {
-  const { name, description, price } = req.body;
+  const { name, description, price, img_url } = req.body;
   try {
-    const newProduct = await createProduct({ name, description, price });
+    const newProduct = await createProduct({ name, description, price, img_url });
     res.status(201).json(newProduct);
   } catch (error) {
     next(error);
@@ -48,9 +48,9 @@ productsRouter.post('/', authenticateToken, async (req, res, next) => {
 
 productsRouter.put('/:productId', authenticateToken, async (req, res, next) => {
   const { productId } = req.params;
-  const { name, description, price } = req.body;
+  const { name, description, price, img_url } = req.body;
   try {
-    const updatedProduct = await updateProduct(productId, { name, description, price });
+    const updatedProduct = await updateProduct(productId, { name, description, price, img_url });
     if (!updatedProduct) {
       return res.status(404).json({ message: 'Product not found' });
     }

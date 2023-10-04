@@ -11,8 +11,8 @@ const pool = new Pool({
 const createProduct = async (product) => {
     const { name, description, price } = product;
     const query = {
-        text: 'INSERT INTO products(name, description, price) VALUES($1, $2, $3) RETURNING *',
-        values: [name, description, price],
+        text: 'INSERT INTO products(name, description, price, img_url) VALUES($1, $2, $3) RETURNING *',
+        values: [name, description, price, img_url],
     };
 
     try {
@@ -45,7 +45,7 @@ const updateProduct = async (productId, updatedProduct) => {
     const { name, description, price } = updatedProduct;
     const query = {
       text: 'UPDATE products SET name = $1, description = $2, price = $3 WHERE id = $4 RETURNING *',
-      values: [name, description, price, productId],
+      values: [name, description, price, img_url, productId],
     };
   
     try {
