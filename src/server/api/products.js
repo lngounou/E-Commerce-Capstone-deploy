@@ -1,6 +1,6 @@
 const express = require('express');
 const productsRouter = express.Router();
-const { authenticateToken } = require('./utils.js')
+const { requireAdmin } = require('.//utils.js')
 
 const {
   createProduct,
@@ -35,7 +35,7 @@ productsRouter.get('/:productId', async (req, res, next) => {
 });
 
 
-productsRouter.post('/', authenticateToken, async (req, res, next) => {
+productsRouter.post('/', requireAdmin, async (req, res, next) => {
   const { name, description, price, img_url } = req.body;
   try {
     const newProduct = await createProduct({ name, description, price, img_url });
@@ -46,7 +46,7 @@ productsRouter.post('/', authenticateToken, async (req, res, next) => {
 });
 
 
-productsRouter.put('/:productId', authenticateToken, async (req, res, next) => {
+productsRouter.put('/:productId', requireAdmin, async (req, res, next) => {
   const { productId } = req.params;
   const { name, description, price, img_url } = req.body;
   try {
@@ -61,7 +61,7 @@ productsRouter.put('/:productId', authenticateToken, async (req, res, next) => {
 });
 
 // DELETE a product by ID
-productsRouter.delete('/:productId', authenticateToken, async (req, res, next) => {
+productsRouter.delete('/:productId', requireAdmin, async (req, res, next) => {
   const { productId } = req.params;
   try {
     const deletedProduct = await deleteProduct(productId);

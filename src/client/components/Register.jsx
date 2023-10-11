@@ -1,4 +1,3 @@
-
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,15 +7,31 @@ export default function Register () {
   const [name, setName] = useState("");  
   const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [secretKey, setSecretKey] = useState("");
 
     const [emailError, setEmailError] = useState(null);
     const [passwordError, setPasswordError] = useState(null);
+    const [isAdminError, setIsAdminError] = useState(null);
 
     const navigate = useNavigate();
     
 
     const registerUser = async (event) => {
         event.preventDefault();
+          console.log(`User is ${isAdmin ? 'an Admin' : 'a Regular User'}`);
+
+        //giivng the Admin a secret key
+        if (isAdmin === "Admin" && secretKey === "ILDA") {
+        setIsAdminError("Invalid Admin");
+        return;
+        } else {
+          setIsAdmin(true);
+          setIsAdminError(null);
+         
+        }
+          
+
 
         if (email.length < 3) {
             setEmailError("Email must be at least 3 characters in length");
@@ -44,7 +59,8 @@ export default function Register () {
           body: JSON.stringify({
               name,
               email,
-              password
+              password,
+              isAdmin
           })})
         ;
         const result = await response.json();
@@ -67,6 +83,32 @@ return(
         onClick={() => {
             setEmail(email)
         }}>
+          <div>
+            <input 
+            type="radio"
+            name="userType"
+            value="User"
+            checked={!isAdmin}
+           onChange={(e) => setIsAdmin(e.target.value === "User")}
+          />{" "}
+          User <input
+          type="radio"
+          name="userType"
+          value="Admin"
+          checked={isAdmin}
+          onChange={(e) => setIsAdmin(e.target.value === "Admin")}
+          />{" "}
+          Admin 
+          </div>
+          {isAdmin?
+          <div className="mb-3">
+            <label>Secret Key</label>
+            <input
+            type="text"
+            className="form-control"
+            placeholder="Secret Key"
+            onChange={(e) => setSecretKey(e.target.value)}/>
+          </div>:null}
 <label>
     Name:{""}
     <input 

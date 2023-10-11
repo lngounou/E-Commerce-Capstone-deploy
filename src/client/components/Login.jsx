@@ -11,10 +11,11 @@ const Login = () => {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
-
+console.log(email)
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+  console.log(password)
 
   //UPDATE URL BELOW where it says localhost:3000/api/users/login
 
@@ -31,6 +32,7 @@ const Login = () => {
             })
         });
         const result = await response.json();
+        console.log(result)
         setMessage(result.message);
         if(!response.ok) {
           throw(result)
