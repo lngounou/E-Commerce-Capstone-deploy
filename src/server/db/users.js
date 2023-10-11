@@ -2,14 +2,15 @@ const db = require('./client')
 const bcrypt = require('bcrypt');
 const SALT_COUNT = 10;
 
-const createUser = async({ name='first last', email, password }) => {
+const createUser = async({ name='first last', email, password, isAdmin }) => {
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     try {
         const { rows: [user] } = await db.query(`
-        INSERT INTO users(name, email, password)
-        VALUES($1, $2, $3)
+        INSERT INTO users(name, email, password, isAdmin)
+        VALUES($1, $2, $3, $4)
         ON CONFLICT (email) DO NOTHING
-        RETURNING *`, [name, email, hashedPassword]);
+        RETURNING *`, [name, email, hashedPassword, isAdmin]);
+        console.log("user data from createUser db", user)
 
         return user;
     } catch (err) {
@@ -19,6 +20,7 @@ const createUser = async({ name='first last', email, password }) => {
 }
 
 const getUser = async({email, password}) => {
+    //console.log("username and password:", password)
     if(!email || !password) {
         throw new Error('Email and password are required.');
     }
@@ -27,7 +29,8 @@ const getUser = async({email, password}) => {
         if(!user) {
             throw new Error('User not found.');
         }
-        const passwordsMatch = await bcrypt.compare(password, user.password);
+        const hashedPassword = user.password;
+        const passwordsMatch = await bcrypt.compare(password, hashedPassword);
         if(!passwordsMatch) {
             throw new Error('Password does not match.');
         }
