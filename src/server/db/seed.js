@@ -1,28 +1,75 @@
 const db = require('./client');
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 const { faker } = require('@faker-js/faker');
 const { createCart, createCartItems } = require('./cart');
 
 const SALT_COUNT = 10;
 
-const generateUsers = (count) => {
-  const users = [];
-  for (let i = 0; i < count; i++) {
-    const user = {
-      name: faker.person.fullName(),
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-    };
-    users.push(user);
+const users = [
+  {
+    name: 'Test Test',
+    email: 'test@example.com',
+    password: 'pianopiano',
+    isAdmin: false
+  },
+  {
+    name: 'Drin Chi',
+    email: 'drin@example.com',
+    password: 'testingpass',
+    isAdmin: false
+  },
+  {
+    name: 'Romeo Ro',
+    email: 'roro@example.com',
+    password: 'password0123',
+    isAdmin: false
+  },
+  {
+    name: 'North West',
+    email: 'nowe@example.com',
+    password: 'mentosgum',
+    isAdmin: false
+  },
+  {
+    name: 'Kresha Al',
+    email: 'kresha@example.com',
+    password: 'albanian',
+    isAdmin: false
+  },
+  {
+    name: 'Trader Joe',
+    email: 'market@example.com',
+    password: 'supermarket',
+    isAdmin: false
+  },
+  {
+    name: 'Ilda',
+    email: 'admin@gmail.com',
+    password: 'fullstack',
+    isAdmin: true
   }
-  return users;
-};
+]
 
-const users = generateUsers(50);
 
-const generateProducts = (count) => {
+
+// const generateUsers = (count) => {
+//   const users = [];
+//   for (let i = 0; i < count; i++) {
+//     const user = {
+//       name: faker.person.fullName(),
+//       email: faker.internet.email(),
+//       password: faker.internet.password(),
+//     };
+//     users.push(user);
+//   }
+//   return users;
+// };
+
+// const users = generateUsers(50);
+
+function generateProducts(count) {
   const products = [];
   for (let i = 0; i < count; i++) {
     const product = {
@@ -53,7 +100,8 @@ const createTables = async () => {
           id SERIAL PRIMARY KEY,
           name VARCHAR(255) DEFAULT 'name',
           email VARCHAR(255) UNIQUE NOT NULL,
-          password VARCHAR(255) NOT NULL
+          password VARCHAR(255) NOT NULL,
+          isAdmin BOOLEAN DEFAULT FALSE
         );
         
         CREATE TABLE IF NOT EXISTS products(
@@ -88,7 +136,7 @@ const insertUsers = async () => {
   try {
     for (const user of users) {
       const hashedPassword = await bcrypt.hash(user.password, SALT_COUNT);
-      await createUser({ name: user.name, email: user.email, password: hashedPassword });
+      await createUser({ name: user.name, email: user.email, password: hashedPassword, isAdmin: user.isAdmin });
     }
     console.log('Seed data inserted successfully.');
   } catch (error) {

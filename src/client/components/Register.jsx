@@ -1,4 +1,3 @@
-
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,9 +8,12 @@ export default function Register () {
   const [name, setName] = useState("");  
   const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [secretKey, setSecretKey] = useState("");
 
     const [emailError, setEmailError] = useState(null);
     const [passwordError, setPasswordError] = useState(null);
+    const [isAdminError, setIsAdminError] = useState(null);
 
     const navigate = useNavigate();
     // const notify = () => toast("Registration successful.");
@@ -19,6 +21,19 @@ export default function Register () {
 
     const registerUser = async (event) => {
         event.preventDefault();
+          console.log(`User is ${isAdmin ? 'an Admin' : 'a Regular User'}`);
+
+        //giivng the Admin a secret key
+        if (isAdmin === "Admin" && secretKey === "ILDA") {
+        setIsAdminError("Invalid Admin");
+        return;
+        } else {
+          setIsAdmin(true);
+          setIsAdminError(null);
+         
+        }
+          
+
 
         // form validation: email
         if (email.length < 3) {
@@ -47,7 +62,8 @@ export default function Register () {
           body: JSON.stringify({
               name,
               email,
-              password
+              password,
+              isAdmin
           })})
         ;
         const result = await response.json();
@@ -80,9 +96,37 @@ return (
         onClick={() => {
             setEmail(email)
         }}>
+          
+          <div>
+            <input 
+            type="radio"
+            name="userType"
+            value="User"
+            checked={!isAdmin}
+           onChange={(e) => setIsAdmin(e.target.value === "User")}
+          />{" "}
+          User <input
+          type="radio"
+          name="userType"
+          value="Admin"
+          checked={isAdmin}
+          onChange={(e) => setIsAdmin(e.target.value === "Admin")}
+          />{" "}
+          Admin 
+          </div>
+          {isAdmin?
+          <div className="mb-3">
+            <label>Secret Key</label>
+            <input
+            type="text"
+            className="form-control"
+            placeholder="Secret Key"
+            onChange={(e) => setSecretKey(e.target.value)}/>
+          </div>:null}
+
 <label class='goldfont slightpadding'>
     Name: {""}
-    <input 
+        <input 
         class='field'
         placeholder='Enter Name'
         value = {name}

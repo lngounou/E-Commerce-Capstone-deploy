@@ -1,6 +1,6 @@
 const express = require('express');
 const usersRouter = express.Router();
-const { authenticateToken } = require('./utils.js');
+const { authenticateToken, requireAdmin, requireUser } = require('./utils.js');
 
 const {
     createUser,
@@ -10,6 +10,7 @@ const {
 } = require('../db');
 
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET = 'somesecretvalue' } = process.env;
 
 // function authenticateToken(req, res, next) {
 //     const authHeader = req.header('Authorization');
@@ -45,6 +46,9 @@ usersRouter.get('/', async (req, res, next) => {
 
 usersRouter.post('/login', async (req, res, next) => {
     const { email, password } = req.body;
+    //console.log(req.body)
+    //console.log('email(login):',email)
+  //console.log('password:',password)
     if (!email || !password) {
         next({
             name: 'MissingCredentialsError',
@@ -53,6 +57,8 @@ usersRouter.post('/login', async (req, res, next) => {
     }
     try {
         const user = await getUser({ email, password });
+        console.log('user data from /login:',user)
+   
         if (user) {
             const token = jwt.sign({
                 id: user.id,
@@ -77,8 +83,8 @@ usersRouter.post('/login', async (req, res, next) => {
 });
 
 usersRouter.post('/register', async (req, res, next) => {
-    const { name, email, password } = req.body;
-    console.log(name, email, password);
+    const { name, email, password, isAdmin} = req.body;
+    console.log(name, email, password, isAdmin);
 
     try {
         const _user = await getUserByEmail(email);
@@ -89,17 +95,24 @@ usersRouter.post('/register', async (req, res, next) => {
                 message: 'A user with that email already exists'
             });
         }
+        
+        // console.log("unHashed Password", password);
+        // const hashedPassword = await bcrypt.hash(password, 10);
+        // console.log("Hashed Password:", hashedPassword);
+    
+
 
         const user = await createUser({
             name,
             email,
-            password
+            password,
+            isAdmin
         });
 
         const token = jwt.sign({
             id: user.id,
             email
-        }, process.env.JWT_SECRET, {
+        }, `${process.env.JWT_SECRET}`, {
             expiresIn: '1w'
         });
 
