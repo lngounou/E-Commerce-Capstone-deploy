@@ -1,3 +1,5 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import Register from './components/Register';
@@ -9,14 +11,10 @@ import AllProducts from './components/ProductsUnauth';
 import SingleProduct from './components/SingleProduct';
 
 
-
 function App() {
-  const [user, setUser] = useState(null);
-  const auth = sessionStorage.getItem('token');
 
   return (
   <>
-    <div>
         <Navbar />
         <Routes>
 
@@ -28,11 +26,10 @@ function App() {
         <Route path='/products/:productId' element={<SingleProduct />} />
 
         </Routes>
-    </div>
     </>
-  )
+  );
 }
 
-{/* <Route path='/products' element= {auth ? <AuthProducts /> : <UnauthProducts />} /> */}
+/* <Route path='/products' element= {auth ? <AuthProducts /> : <UnauthProducts />} /> */
 
 export default App;

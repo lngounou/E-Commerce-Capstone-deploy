@@ -16,8 +16,6 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  //UPDATE URL BELOW where it says localhost:3000/api/users/login
-
   const login = async() => {
     try {
         const response = await fetch('http://localhost:3000/api/users/login', {
@@ -52,11 +50,12 @@ const Login = () => {
 
   return (
     <div>
-      <h2>Sign In</h2>
+      <h2 class='goldfont slightpadding'>Sign In</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='email'>Email:     </label>
+          <label class='goldfont slightpadding' htmlFor='email'>Email:     </label>
           <input
+            class='field'
             type='email'
             id='email'
             value={email}
@@ -66,8 +65,9 @@ const Login = () => {
         </div>
         <br></br>
         <div>
-          <label htmlFor='password'>Password:     </label>
+          <label class='goldfont slightpadding' htmlFor='password'>Password:     </label>
           <input
+            class='field'
             type='password'
             id='password'
             value={password}
@@ -76,7 +76,7 @@ const Login = () => {
           />
         </div>
         <br></br>
-        <button type='submit'>Login</button>
+        <button type='submit' class='sleekbutton'>Login</button>
       </form>
       <p>{message}</p>
     </div>
