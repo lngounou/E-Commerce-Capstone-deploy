@@ -1,10 +1,9 @@
 #root {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
-  font-family: 'Comfortaa', cursive;
-  background-image: url(https://www.justinecelina.com/wp-content/uploads/2020/04/justinecelina_digital-blooms-april-2020-free-desktop-wallpaper-scaled.jpg);
-  background-size: 100%;
+  font-family: 'Nunito', sans-serif;
+  background-color: black;
 }
 
 .App {
@@ -18,31 +17,168 @@
   font-size: 24px;
 }
 
+.homecontainer {
+  width: 100%;
+  height: 100%;
+  display: flexbox;
+}
+
+.homehero {
+  background-color: black;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  color:darkgoldenrod;
+  font-weight: 300;
+  padding: 2rem;
+}
+
+.homeheroitemimg {
+  flex: 1;
+}
+
+.homeheroitemimg:hover {
+  transform: translateY(-3px);
+  transition: 0.25s;
+}
+
+.homeheroitem {
+  flex: 1;
+  margin: 8rem 0px;
+}
+
+.homeherobutton {
+  width: 100%;
+  background-color: black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex1 {
+  flex: 1;
+}
+.sleekbutton {
+  background-color: darkgoldenrod;
+  color: black;
+  border: 1px solid darkgoldenrod;
+  border-width: 1px;
+  height: fit-content;
+  width: fit-content;
+  font-family: 'Nunito', cursive;
+  padding: 1rem;
+  margin: 0px 10px;
+  cursor: pointer;
+  font-size: medium;
+}
+
+.sleekbutton:hover {
+  transform: translateY(-3px);
+  transition: 0.25s;
+}
+
 .all-products-container {
   display: flex;
-  flex-direction: column;
-  border: 3px solid navy;
-  background-color: rgb(106, 106, 145);
-  height: 30vh;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: black;
+}
+
+.productcard {
+  flex: 1;
+  flex-basis: 20rem;
+  height: 40rem;
+  box-shadow: 
+    2px 6px 6px darkgoldenrod
+    -1px -1px 7px darkgoldenrod;
+  margin: 10px;
+  padding: 10px;
+  color: darkgoldenrod;
+  background-color: black;
+  border: 1px solid black;
+  align-items: center;
+  justify-content: center;
+}
+
+.productcard:hover {
+  flex: 1;
+  flex-basis: 20rem;
+  height: 40rem;
+  box-shadow: 
+    2px 6px 6px rgb(197, 5, 117),
+    -1px -1px 7px darkgoldenrod;
+  margin: 10px;
+  padding: 10px;
+  color: darkgoldenrod;
+  background-color: black;
+  border: 1px solid black;
+  align-items: center;
+  justify-content: center;
+}
+
+.productcard img {
+  border: 1px solid darkgoldenrod;
+}
+
+.productbutton {
+  margin-bottom: 2rem;
 }
 
 .navbar {
   display: flex;
   align-items: center;
   position: sticky;
-  background-color:rgb(1, 92, 42);
+  background-color:black;
   list-style: none;
   margin-top: 0;
-  height: 8vh;
+  height: 5rem;
 }
 
 .navbar a {
   color: #fff;
   text-decoration: none;
   padding: 2em;
+  font-size: large;
 }
 
 .brighttext {
   color: azure;
 }
+
+.productshero {
+  height: 25rem;
+
+}
+
+.largefont {
+  font-size: 4rem;
+  color: darkgoldenrod;
+}
+
+.marginright {
+  margin-right: 10rem;
+}
+
+.marginleft {
+  margin-left: 30rem;
+}
+
+.slightpadding {
+  padding: 1rem 1rem;
+}
+
+.goldfont {
+  color: darkgoldenrod;
+}
+
+.field {
+  box-sizing: border-box;
+  height: 1.75rem;
+  width: 15rem;
+  border: 1px solid #E6E6E6;
+  border-radius: 10px;
+}
+
+
 /* Add more styling for other elements if needed */
+/* background-image: url(https://www.justinecelina.com/wp-content/uploads/2020/04/justinecelina_digital-blooms-april-2020-free-desktop-wallpaper-scaled.jpg); */

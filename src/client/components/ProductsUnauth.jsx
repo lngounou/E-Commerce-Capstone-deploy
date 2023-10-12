@@ -9,8 +9,6 @@ export default function AllProducts() {
     const auth = sessionStorage.getItem('token');
     const navigate = useNavigate();
 
-//UPDATE URL BELOW where it says URL/products
-
     useEffect(() => {
         async function fetchAllProducts() {
             try {
@@ -27,18 +25,17 @@ export default function AllProducts() {
         }, [])
 
         return (
-            <>
+            <div class='all-products-container homecontainer'>
         {products ? 
         products.map((product) => { 
-            return ( <div key={product.id} style={{ cursor:"pointer" }}>
+            return ( <div key={product.id} style={{ cursor:"pointer" }} class='productcard' onClick={() => {navigate(`/products/${product.id}`)}}>
+                <img src={product.img_url} alt="product image" width="300rem" />
                 <h2>Product: {product.name}</h2>
                 <h2>Description: {product.description}</h2>
                 <h2>Price: {product.price}</h2>
-                <button onClick={() => {navigate(`/products/${product.id}`)}}></button>
+                <button class='sleekbutton productbutton' onClick={() => {navigate(`/products/${product.id}`)}}>Product Details</button>
             </div> )
         }) : null}
-        </>
+        </div>
         )
 }
-
-//Incorporate the ID passing in the useNavigate

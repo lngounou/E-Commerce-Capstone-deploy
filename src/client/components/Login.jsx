@@ -17,8 +17,6 @@ console.log(email)
   };
   console.log(password)
 
-  //UPDATE URL BELOW where it says localhost:3000/api/users/login
-
   const login = async() => {
     try {
         const response = await fetch('http://localhost:3000/api/users/login', {
@@ -54,11 +52,12 @@ console.log(email)
 
   return (
     <div>
-      <h2>Sign In</h2>
+      <h2 class='goldfont slightpadding'>Sign In</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='email'>Email:     </label>
+          <label class='goldfont slightpadding' htmlFor='email'>Email:     </label>
           <input
+            class='field'
             type='email'
             id='email'
             value={email}
@@ -68,8 +67,9 @@ console.log(email)
         </div>
         <br></br>
         <div>
-          <label htmlFor='password'>Password:     </label>
+          <label class='goldfont slightpadding' htmlFor='password'>Password:     </label>
           <input
+            class='field'
             type='password'
             id='password'
             value={password}
@@ -78,7 +78,7 @@ console.log(email)
           />
         </div>
         <br></br>
-        <button type='submit'>Login</button>
+        <button type='submit' class='sleekbutton'>Login</button>
       </form>
       <p>{message}</p>
     </div>

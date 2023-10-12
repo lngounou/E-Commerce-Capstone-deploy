@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 export default function Register () {
@@ -15,6 +16,7 @@ export default function Register () {
     const [isAdminError, setIsAdminError] = useState(null);
 
     const navigate = useNavigate();
+    // const notify = () => toast("Registration successful.");
     
 
     const registerUser = async (event) => {
@@ -33,6 +35,7 @@ export default function Register () {
           
 
 
+        // form validation: email
         if (email.length < 3) {
             setEmailError("Email must be at least 3 characters in length");
             return;
@@ -64,25 +67,36 @@ export default function Register () {
           })})
         ;
         const result = await response.json();
-        console.log(result)
+        console.log(result);
+        toast("Registration successful! Please sign in.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          })
             navigate('/login');
     
         return result
       } catch (err) {
         console.error(err)
       }    
-};
+  };
 
-return(
+return (
     <>
     <div>
-<h2>Don't have an account? Sign Up</h2>
+<h2 class='goldfont slightpadding'>Don't have an account? Sign up below.</h2>
  <form
  method="POST"
  onSubmit={registerUser} 
         onClick={() => {
             setEmail(email)
         }}>
+          
           <div>
             <input 
             type="radio"
@@ -109,9 +123,11 @@ return(
             placeholder="Secret Key"
             onChange={(e) => setSecretKey(e.target.value)}/>
           </div>:null}
-<label>
-    Name:{""}
-    <input 
+
+<label class='goldfont slightpadding'>
+    Name: {""}
+        <input 
+        class='field'
         placeholder='Enter Name'
         value = {name}
         
@@ -119,20 +135,22 @@ return(
         setName(e.target.value)} />
 </label>
 
-<label>
-    Email:{""}
+<label class='goldfont slightpadding'>
+    Email: {""}
     <input 
+        class='field'
         placeholder='Enter Email'
         value = {email}
-        
+        type='email'
          onChange={(e)=> 
         setEmail(e.target.value)} />
 </label>
 {emailError && <p style={{ color: "red"}}>{emailError}</p>} 
 
-<label >
-        Password:{""}
+<label class='goldfont slightpadding'>
+        Password: {""}
          <input 
+         class='field'
          placeholder='Create Password'
          type='password'
          value={password}
@@ -142,7 +160,7 @@ return(
     
          {passwordError && <p style={{ color: "red"}}>{passwordError}</p>}
 
-         <button  type='Submit' style=
+         <button  type='Submit' class='sleekbutton' style=
             {{width: "80px", height: "37px", padding: "10px", 
             fontSize:"15px"}}
            
