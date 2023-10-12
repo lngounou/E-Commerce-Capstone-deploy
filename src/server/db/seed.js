@@ -1,7 +1,7 @@
 const db = require('./client');
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
-//const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const { faker } = require('@faker-js/faker');
 const { createCart, createCartItems } = require('./cart');
 
