@@ -9,7 +9,9 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import AllProducts from './components/ProductsUnauth';
 import SingleProduct from './components/SingleProduct';
-
+import AddProduct from './components/AddProduct';
+import Cart from './components/Cart';
+import Checkout from './components/Checkout';
 
 function App() {
 
@@ -24,7 +26,7 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/products' element={<AllProducts />} />
         <Route path='/products/:productId' element={<SingleProduct />} />
-
+        <Route path="/checkout" element={<Checkout />} />
         </Routes>
     </>
   );
