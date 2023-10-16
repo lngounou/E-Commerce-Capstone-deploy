@@ -2,72 +2,72 @@ const db = require('./client');
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
 const bcrypt = require('bcrypt');
-const { faker } = require('@faker-js/faker');
+const { faker, fa } = require('@faker-js/faker');
 const { createCart, createCartItems } = require('./cart');
 
 const SALT_COUNT = 10;
 
-const users = [
-  {
-    name: 'Test Test',
-    email: 'test@example.com',
-    password: 'pianopiano',
-    isAdmin: false
-  },
-  {
-    name: 'Drin Chi',
-    email: 'drin@example.com',
-    password: 'testingpass',
-    isAdmin: false
-  },
-  {
-    name: 'Romeo Ro',
-    email: 'roro@example.com',
-    password: 'password0123',
-    isAdmin: false
-  },
-  {
-    name: 'North West',
-    email: 'nowe@example.com',
-    password: 'mentosgum',
-    isAdmin: false
-  },
-  {
-    name: 'Kresha Al',
-    email: 'kresha@example.com',
-    password: 'albanian',
-    isAdmin: false
-  },
-  {
-    name: 'Trader Joe',
-    email: 'market@example.com',
-    password: 'supermarket',
-    isAdmin: false
-  },
-  {
-    name: 'Ilda',
-    email: 'admin@gmail.com',
-    password: 'fullstack',
-    isAdmin: true
-  }
-]
-
-
-
-// const generateUsers = (count) => {
-//   const users = [];
-//   for (let i = 0; i < count; i++) {
-//     const user = {
-//       name: faker.person.fullName(),
-//       email: faker.internet.email(),
-//       password: faker.internet.password(),
-//     };
-//     users.push(user);
+// const users = [
+//   {
+//     name: 'Test Test',
+//     email: 'test@example.com',
+//     password: 'pianopiano',
+//     isAdmin: false
+//   },
+//   {
+//     name: 'Drin Chi',
+//     email: 'drin@example.com',
+//     password: 'testingpass',
+//     isAdmin: false
+//   },
+//   {
+//     name: 'Romeo Ro',
+//     email: 'roro@example.com',
+//     password: 'password0123',
+//     isAdmin: false
+//   },
+//   {
+//     name: 'North West',
+//     email: 'nowe@example.com',
+//     password: 'mentosgum',
+//     isAdmin: false
+//   },
+//   {
+//     name: 'Kresha Al',
+//     email: 'kresha@example.com',
+//     password: 'albanian',
+//     isAdmin: false
+//   },
+//   {
+//     name: 'Trader Joe',
+//     email: 'market@example.com',
+//     password: 'supermarket',
+//     isAdmin: false
+//   },
+//   {
+//     name: 'Ilda',
+//     email: 'admin@gmail.com',
+//     password: 'fullstack',
+//     isAdmin: true
 //   }
-//   return users;
-// };
+// ]
 
-// const users = generateUsers(50);
+
+
+const generateUsers = (count) => {
+  const users = [];
+  for (let i = 0; i < count; i++) {
+    const user = {
+      name: faker.person.fullName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    };
+    users.push(user);
+  }
+  return users;
+};
+
+const users = generateUsers(50);
 
 function generateProducts(count) {
   const products = [];
@@ -86,16 +86,16 @@ function generateProducts(count) {
 const products = generateProducts(30);
 
 const dropTables = async () => {
-    try {
-        await db.query('DROP TABLE IF EXISTS users, products, cart_items, shopping_carts CASCADE');
-    } catch(err) {
-        console.error('Error dropping tables:', err);
-    }
+  try {
+    await db.query('DROP TABLE IF EXISTS users, products, cart_items, shopping_carts CASCADE');
+  } catch (err) {
+    console.error('Error dropping tables:', err);
+  }
 };
 
 const createTables = async () => {
-    try{
-        await db.query(`
+  try {
+    await db.query(`
         CREATE TABLE IF NOT EXISTS users(
           id SERIAL PRIMARY KEY,
           name VARCHAR(255) DEFAULT 'name',
@@ -126,10 +126,10 @@ const createTables = async () => {
         quantity INT
       );
       `);
-    }
-    catch(err) {
-        console.log('Error creating tables:', err);
-    }
+  }
+  catch (err) {
+    console.log('Error creating tables:', err);
+  }
 };
 
 const insertUsers = async () => {
@@ -171,29 +171,34 @@ const getRandomQuantity = () => {
   return faker.number.binary({ min: 1, max: 10 });
 };
 
-const seedDatabase = async () => {
+const seedDatabase = async (connection) => {
   try {
+    if (connection === true){
+      console.log("connecting...",connection)
       db.connect();
-      await dropTables();
-      await createTables();
-      await insertUsers();
-      await insertProducts();
-
-  for (const user of users) {
-    const cart = await createCart(user.id);
-    for (let i = 0; i < 5; i++) {
-      const randomProduct = await getRandomProductId();
-      const quantity = getRandomQuantity();
-      await createCartItems(cart.id, randomProduct, quantity);
     }
+    await dropTables();
+    await createTables();
+    await insertUsers();
+    await insertProducts();
+
+    for (const user of users) {
+      const cart = await createCart(user.id);
+      for (let i = 0; i < 5; i++) {
+        const randomProduct = await getRandomProductId();
+        const quantity = getRandomQuantity();
+        await createCartItems(cart.id, randomProduct, quantity);
+      }
+    }
+
+    console.log('Seed data inserted successfully.');
+  } catch (err) {
+    console.error('Error seeding database:', err);
+  } finally {
+    console.log("ending connection...")
+    db.end()
   }
-
-  console.log('Seed data inserted successfully.');
-    } catch (err) {
-        console.error('Error seeding database:', err);
-    } finally {
-        db.end()
-    }
 };
 
-seedDatabase();
+// seedDatabase();
+module.exports = { seedDatabase }

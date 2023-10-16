@@ -123,6 +123,9 @@
 .productbutton {
   margin-bottom: 2rem;
 }
+.Product{
+  color:#fff;
+}
 
 .navbar {
   display: flex;

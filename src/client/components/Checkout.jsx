@@ -42,27 +42,27 @@ const Checkout = () => {
     }, []);
 
     const handleFinishClick = () => {
-        fetch('http://localhost:3000/api/cart/checkout',{
-            method:'POST',
-            headers:{
-          'Content-Type': 'application/json',
-            Authorization:`Bearer ${sessionStorage.getItem("token")}`
+        fetch('http://localhost:3000/api/cart/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`
             }
         })
-        .then(res=>res.json())
-        .then(res=>{
-            if(res.removed){
-                alert("checked out successfully")
-                navigate('/products');
-            }
-            else{
-                alert("Error checking out try again...")
-            }
-        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.removed) {
+                    alert("checked out successfully")
+                    navigate('/products');
+                }
+                else {
+                    alert("Error checking out try again...")
+                }
+            })
     };
 
     return (
-        <div>
+        <div class="goldfont">
             <h1>Checkout</h1>
             <table>
                 <thead>
@@ -92,7 +92,7 @@ const Checkout = () => {
                     <strong>Additional Charges:</strong> ${additionalCharges}
                 </div>
                 <div>
-                    <strong>Total:</strong> ${additionalCharges+totalPrice}
+                    <strong>Total:</strong> ${additionalCharges + totalPrice}
                 </div>
             </div>
             <button onClick={handleFinishClick}>Finish</button>

@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import AuthHoc from './AuthHOC';
 
 export default function AllProducts() {
 
@@ -34,7 +34,8 @@ export default function AllProducts() {
                 <h2>Description: {product.description}</h2>
                 <h2>Price: {product.price}</h2>
                 <button class='sleekbutton productbutton' onClick={() => {navigate(`/products/${product.id}`)}}>Product Details</button>
-            </div> )
+                <button class='sleekbutton productbutton' onClick={() => { addToCart() }}>Add To Cart</button>
+                </div> )
         }) : null}
         </div>
         )

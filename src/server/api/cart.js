@@ -38,9 +38,11 @@ cartRouter.get('/', authenticateToken, async (req, res, next) => {
 
 
 cartRouter.post('/add', authenticateToken, async (req, res, next) => {
+  console.log ("Hello")
   const { productId, quantity } = req.body;
   try {
     console.log("Addning to cart...", req.user)
+    
     await addToCart(req.user.id, productId, quantity);
     res.status(201).json({ message: 'Item added to cart' });
   } catch (error) {

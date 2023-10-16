@@ -5,6 +5,7 @@ const AuthHoc = (WrappedComponent) => {
     return () => {
         const navigate = useNavigate();
         const [isAuthenticated, setIsAuthenticated] = useState(null);
+        const [user,setUser] = useState(null);
 
         useEffect(() => {
             // Check user authentication here by making a request to your backend
