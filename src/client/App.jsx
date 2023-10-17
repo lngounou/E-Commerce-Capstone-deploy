@@ -9,23 +9,27 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import AllProducts from './components/ProductsUnauth';
 import SingleProduct from './components/SingleProduct';
-
+import AddProduct from './components/AddProduct';
+import Cart from './components/Cart';
+import Checkout from './components/Checkout';
+import AuthProducts from './components/ProductsAuth';
 
 function App() {
 
   return (
-  <>
-        <Navbar />
-        <Routes>
+    <>
+      <Navbar />
+      <Routes>
 
-        <Route path='/' element= {<Home />} />
-        <Route path ='/addproduct' element= {<Login />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/addproduct' element={<Login />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/products' element={<AllProducts />} />
+        <Route path='/products' element={<AuthProducts />} />
+        <Route path='/cart' element={<Cart />} />
         <Route path='/products/:productId' element={<SingleProduct />} />
-
-        </Routes>
+        <Route path="/checkout" element={<Checkout />} />
+      </Routes>
     </>
   );
 }

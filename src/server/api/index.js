@@ -6,6 +6,7 @@ const volleyball = require('volleyball')
 apiRouter.use(volleyball)
 var cors = require('cors')
 apiRouter.use(cors());
+const JWT_SECRET = process.env.JWT_SECRET
 
 apiRouter.use(async (req, res, next) => {
   const auth = req.header('Authorization');
@@ -15,12 +16,13 @@ apiRouter.use(async (req, res, next) => {
   } 
   else if (auth.startsWith('Bearer ')) {
     const token = auth.substring(7);
-    
+    console.log("token : ",token)
     try {
       const decodedToken = jwt.verify(token, JWT_SECRET);
       req.user = decodedToken;
       next();
     } catch (error) {
+      console.log("Auth error")
       next(error);
     }
   } 
