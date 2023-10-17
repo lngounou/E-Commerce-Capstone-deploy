@@ -9,8 +9,18 @@ const {
     getAllUsers
 } = require('../db');
 
+const { Pool } = require('pg');
+
+const pool = new Pool({
+    user: process.env.USER || 'localhost',
+    password: process.env.PASSWORD || 'password',
+    host: 'localhost',
+    database: 'commerce',
+    port: 5432,
+});
+
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET = 'somesecretvalue' } = process.env;
+// const { JWT_SECRET = 'somesecretvalue' } = process.env;
 
 // function authenticateToken(req, res, next) {
 //     const authHeader = req.header('Authorization');
@@ -30,9 +40,11 @@ const { JWT_SECRET = 'somesecretvalue' } = process.env;
 //     });
 // }
 
-usersRouter.get('/protected', authenticateToken, (req, res) => {
+usersRouter.get('/protected', authenticateToken, async (req, res) => {
     const user = req.user;
-    res.json({ message: 'This is a protected route', user });
+    let userResult = await pool.query({ text: 'select * from users where email = $1', values: [user.email] })
+    // console.log("user ",userResult)
+    res.json({ message: 'This is a protected route', isAdmin: userResult.rows[0].isAdmin });
 });
 
 usersRouter.get('/', async (req, res, next) => {
@@ -48,7 +60,7 @@ usersRouter.post('/login', async (req, res, next) => {
     const { email, password } = req.body;
     //console.log(req.body)
     //console.log('email(login):',email)
-  //console.log('password:',password)
+    //console.log('password:',password)
     if (!email || !password) {
         next({
             name: 'MissingCredentialsError',
@@ -57,8 +69,8 @@ usersRouter.post('/login', async (req, res, next) => {
     }
     try {
         const user = await getUser({ email, password });
-        console.log('user data from /login:',user)
-   
+        console.log('user data from /login:', user)
+
         if (user) {
             const token = jwt.sign({
                 id: user.id,
@@ -83,7 +95,7 @@ usersRouter.post('/login', async (req, res, next) => {
 });
 
 usersRouter.post('/register', async (req, res, next) => {
-    const { name, email, password, isAdmin} = req.body;
+    const { name, email, password, isAdmin } = req.body;
     console.log(name, email, password, isAdmin);
 
     try {
@@ -95,11 +107,11 @@ usersRouter.post('/register', async (req, res, next) => {
                 message: 'A user with that email already exists'
             });
         }
-        
+
         // console.log("unHashed Password", password);
         // const hashedPassword = await bcrypt.hash(password, 10);
         // console.log("Hashed Password:", hashedPassword);
-    
+
 
 
         const user = await createUser({

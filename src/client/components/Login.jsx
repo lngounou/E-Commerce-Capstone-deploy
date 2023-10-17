@@ -11,37 +11,37 @@ const Login = () => {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
-console.log(email)
+  console.log(email)
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
   console.log(password)
 
-  const login = async() => {
+  const login = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/users/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            }, 
-            body: JSON.stringify({
-                email,
-                password
-            })
-        });
-        const result = await response.json();
-        console.log(result)
-        setMessage(result.message);
-        if(!response.ok) {
-          throw(result)
-        }
-        sessionStorage.setItem('token', result.token)
-        sessionStorage.getItem('token', result.token)  
-        navigate('/products/');
-        setEmail('');
-        setPassword('');
+      const response = await fetch('http://localhost:3000/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password
+        })
+      });
+      const result = await response.json();
+      //console.log (result)
+      setMessage(result.message);
+      if (!response.ok) {
+        throw (result)
+      }
+      sessionStorage.setItem('token', result.token)
+      sessionStorage.getItem('token', result.token)
+      navigate('/products/');
+      setEmail('');
+      setPassword('');
     } catch (err) {
-        console.error(`${err.name}: ${err.message}`);
+      console.error(`${err.name}: ${err.message}`);
     }
   }
 
