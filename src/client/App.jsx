@@ -13,6 +13,7 @@ import AddProduct from './components/AddProduct';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import AuthProducts from './components/ProductsAuth';
+import CreateProduct from './components/CreateProduct';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/products' element={ auth ? <AuthProducts /> : <AllProducts />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='/createproduct' element={<CreateProduct />} />
         <Route path='/products/:productId' element={<SingleProduct />} />
         <Route path="/checkout" element={<Checkout />} />
       </Routes>

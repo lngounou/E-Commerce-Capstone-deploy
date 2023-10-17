@@ -58,9 +58,9 @@ usersRouter.get('/', async (req, res, next) => {
 
 usersRouter.post('/login', async (req, res, next) => {
     const { email, password } = req.body;
-    //console.log(req.body)
-    //console.log('email(login):',email)
-    //console.log('password:',password)
+    console.log(req.body)
+    console.log('email(login):',email)
+    console.log('password:',password)
     if (!email || !password) {
         next({
             name: 'MissingCredentialsError',
@@ -71,17 +71,29 @@ usersRouter.post('/login', async (req, res, next) => {
         const user = await getUser({ email, password });
         console.log('user data from /login:', user)
 
-        if (user) {
+        if (user) { 
+            console.log('user', user)
+
+            const isAdmin = user.isAdmin;
+
             const token = jwt.sign({
                 id: user.id,
-                email
-            }, process.env.JWT_SECRET, {
+                email,
+                isAdmin: user.isAdmin,
+
+
+            }, `${process.env.JWT_SECRET}`, {
                 expiresIn: '1w'
             });
+            console.log('token:', token)
 
             res.send({
                 message: 'Login successful!',
-                token
+                token,
+                userId: user.id,
+                name: user.name,
+                isAdmin,
+
             });
         } else {
             next({
@@ -90,6 +102,8 @@ usersRouter.post('/login', async (req, res, next) => {
             });
         }
     } catch (err) {
+        console.log('this is a token from //login:',`${process.env.JWT_SECRET}`)
+    console.log('error from /login api');
         next(err);
     }
 });
