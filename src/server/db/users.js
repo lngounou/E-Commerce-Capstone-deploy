@@ -31,6 +31,7 @@ const getUser = async({email, password}) => {
         }
         const hashedPassword = user.password;
         const passwordsMatch = await bcrypt.compare(password, hashedPassword);
+        console.log (password)
         if(!passwordsMatch) {
             throw new Error('Password does not match.');
         }

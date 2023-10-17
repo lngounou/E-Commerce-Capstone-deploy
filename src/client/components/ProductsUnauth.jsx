@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import AuthHoc from './AuthHOC';
 
 export default function AllProducts() {
 
@@ -89,3 +89,4 @@ const sortProducts = () => {
                 // }) : null}
                 // </div>
                 // )
+
