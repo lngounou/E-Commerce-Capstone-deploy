@@ -6,6 +6,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(true);
 
 
   const handleEmailChange = (e) => {
@@ -37,6 +38,12 @@ const Login = () => {
       }
       sessionStorage.setItem('token', result.token)
       sessionStorage.getItem('token', result.token)
+      if (result.isAdmin === true) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      } console.log(result)
+     
       navigate('/products/');
       setEmail('');
       setPassword('');

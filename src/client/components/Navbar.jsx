@@ -17,6 +17,7 @@ const Navbar = () => {
             <div className='navbar brighttext'>
                 <div><Link to={'/products'}>Products</Link></div>
                 <div><Link to={'/cart'}>Cart</Link></div>
+                <div><Link to={'/createproduct'}>Create Product</Link></div>
                 <div><Link onClick={logout} to='/login'>Log Out</Link></div>
             </div>
         )

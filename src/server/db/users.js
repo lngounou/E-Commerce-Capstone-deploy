@@ -26,9 +26,8 @@ const getUser = async({email, password}) => {
     }
     try {
         const user = await getUserByEmail(email);
-        if(!user) {
-            throw new Error('User not found.');
-        }
+        if(!user) return;
+       user.isAdmin = user.isAdmin
         const hashedPassword = user.password;
         const passwordsMatch = await bcrypt.compare(password, hashedPassword);
         console.log (password)
