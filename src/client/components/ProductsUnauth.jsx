@@ -40,11 +40,11 @@ const sortProducts = () => {
               }
             }
             fetchAllProducts();
-        }, [])
+        }, [sortCriteria, sortDirection])
 
         return (
                 <div className='goldfont'>
-
+                    <br></br>
                     <label>Sort by:</label>
                     
                     <select onChange={(e) => setSortCriteria(e.target.value)}>
@@ -59,7 +59,7 @@ const sortProducts = () => {
                         <option value = "desc">Descending</option>
                     </select>
                     
-                    <button onClick={sortProducts}>Sort</button>
+                    <button className='sleekbutton' onClick={sortProducts}>Sort</button>
 
                 <div className = 'all-products-container homecontainer'>
                 {products.map((product) => {

@@ -120,12 +120,12 @@ export default function Register() {
               <label>Secret Key</label>
               <input
                 type="text"
-                className="form-control"
+                class="form-control"
                 placeholder="Secret Key"
                 onChange={(e) => setSecretKey(e.target.value)} />
             </div> : null}
 
-          <label class='goldfont slightpadding'>
+          <label class='goldfont slightpadding slightmargin'>
             Name: {""}
             <input
               class='field'
@@ -136,7 +136,7 @@ export default function Register() {
                 setName(e.target.value)} />
           </label>
 
-          <label class='goldfont slightpadding'>
+          <label class='goldfont slightpadding slightmargin'>
             Email: {""}
             <input
               class='field'
@@ -148,41 +148,9 @@ export default function Register() {
           </label>
           {emailError && <p style={{ color: "red" }}>{emailError}</p>}
 
-          <label class='goldfont slightpadding'>
+          <label class='goldfont slightpadding slightmargin'>
             Password: {""}
             <input
-            type="text"
-            className="form-control"
-            placeholder="Secret Key"
-            onChange={(e) => setSecretKey(e.target.value)}/>
-          </div>:null}
-
-<label class='goldfont slightpadding'>
-    Name: {""}
-        <input 
-        class='field'
-        placeholder='Enter Name'
-        value = {name}
-        
-         onChange={(e)=> 
-        setName(e.target.value)} />
-</label>
-
-<label class='goldfont slightpadding'>
-    Email: {""}
-    <input 
-        class='field'
-        placeholder='Enter Email'
-        value = {email}
-        type='email'
-         onChange={(e)=> 
-        setEmail(e.target.value)} />
-</label>
-{emailError && <p style={{ color: "red"}}>{emailError}</p>} 
-
-<label class='goldfont slightpadding'>
-        Password: {""}
-         <input 
          class='field'
          placeholder='Create Password'
          type='password'

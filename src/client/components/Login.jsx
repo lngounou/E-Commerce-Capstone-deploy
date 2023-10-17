@@ -40,6 +40,7 @@ const Login = () => {
       navigate('/products/');
       setEmail('');
       setPassword('');
+      location.reload();
     } catch (err) {
       console.error(`${err.name}: ${err.message}`);
     }

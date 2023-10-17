@@ -124,18 +124,18 @@ const Cart = () => {
 
   return (
     <div>
-      <h2>Your Cart</h2>
+      <h2 className='goldfont'>Your Cart</h2>
       <ul>
         {cart.map((item) => (
-          <li key={item.productId} className='Product'>
-            {item.productName} - Quantity: {item.quantity}
-            <button onClick={() => editCartQuantity(item.product_id, item.quantity + 1)}>+</button>
-            <button onClick={() => editCartQuantity(item.product_id, item.quantity - 1)}>-</button>
-            <button onClick={() => removeFromCart(item.id)}>Remove</button>
+          <li key={item.id} className='Product'>
+            {item.name} - Quantity: {item.quantity}
+            <button className='sleekbutton slightmargin' onClick={() => editCartQuantity(item.product_id, item.quantity + 1)}>+</button>
+            <button className='sleekbutton slightmargin' onClick={() => editCartQuantity(item.product_id, item.quantity - 1)}>-</button>
+            <button className='sleekbutton slightmargin' onClick={() => removeFromCart(item.id)}>Remove</button>
           </li>
         ))}
       </ul>
-      <p>Total Price: ${totalPrice}</p>
+      <h2 className='goldfont'>Total Price: ${totalPrice}</h2>
       {
         totalPrice !== 0 ?
           <Link to="/checkout">Checkout</Link>
