@@ -52,12 +52,12 @@ const Login = () => {
 
   return (
     <div>
-      <h2 class='goldfont slightpadding'>Sign In</h2>
+      <h2 className='goldfont slightpadding'>Sign In</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label class='goldfont slightpadding' htmlFor='email'>Email:     </label>
+          <label className='goldfont slightpadding' htmlFor='email'>Email:     </label>
           <input
-            class='field'
+            className='field'
             type='email'
             id='email'
             value={email}
@@ -67,9 +67,9 @@ const Login = () => {
         </div>
         <br></br>
         <div>
-          <label class='goldfont slightpadding' htmlFor='password'>Password:     </label>
+          <label className='goldfont slightpadding' htmlFor='password'>Password:     </label>
           <input
-            class='field'
+            className='field'
             type='password'
             id='password'
             value={password}
@@ -78,7 +78,7 @@ const Login = () => {
           />
         </div>
         <br></br>
-        <button type='submit' class='sleekbutton'>Login</button>
+        <button type='submit' className='sleekbutton'>Login</button>
       </form>
       <p>{message}</p>
     </div>

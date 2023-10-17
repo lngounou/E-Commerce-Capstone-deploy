@@ -170,6 +170,10 @@
   padding: 1rem 1rem;
 }
 
+.slightmargin {
+  margin: 1rem 1rem;
+}
+
 .goldfont {
   color: darkgoldenrod;
 }

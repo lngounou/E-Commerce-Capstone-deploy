@@ -96,24 +96,24 @@ export default function Register() {
           onSubmit={registerUser}
           onClick={() => {
             setEmail(email)
-          }}>
-
-          <div>
-            <input
-              type="radio"
-              name="userType"
-              value="User"
-              checked={!isAdmin}
-              onChange={(e) => setIsAdmin(e.target.value === "User")}
-            />{" "}
-            User <input
-              type="radio"
-              name="userType"
-              value="Admin"
-              checked={isAdmin}
-              onChange={(e) => setIsAdmin(e.target.value === "Admin")}
-            />{" "}
-            Admin
+        }}>
+          
+          <div class='goldfont slightpadding'>
+            <input 
+            type="radio"
+            name="userType"
+            value="User"
+            checked={!isAdmin}
+           onChange={(e) => setIsAdmin(e.target.value === "User")}
+          />{" "}
+          User <input
+          type="radio"
+          name="userType"
+          value="Admin"
+          checked={isAdmin}
+          onChange={(e) => setIsAdmin(e.target.value === "Admin")}
+          />{" "}
+          Admin 
           </div>
           {isAdmin ?
             <div className="mb-3">
@@ -151,30 +151,60 @@ export default function Register() {
           <label class='goldfont slightpadding'>
             Password: {""}
             <input
-              class='field'
-              placeholder='Create Password'
-              type='password'
-              value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)} />
-          </label>
+            type="text"
+            className="form-control"
+            placeholder="Secret Key"
+            onChange={(e) => setSecretKey(e.target.value)}/>
+          </div>:null}
 
-          {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
+<label class='goldfont slightpadding'>
+    Name: {""}
+        <input 
+        class='field'
+        placeholder='Enter Name'
+        value = {name}
+        
+         onChange={(e)=> 
+        setName(e.target.value)} />
+</label>
 
-          <button type='Submit' class='sleekbutton' style=
-            {{
-              width: "80px", height: "37px", padding: "10px",
-              fontSize: "15px"
-            }}
+<label class='goldfont slightpadding'>
+    Email: {""}
+    <input 
+        class='field'
+        placeholder='Enter Email'
+        value = {email}
+        type='email'
+         onChange={(e)=> 
+        setEmail(e.target.value)} />
+</label>
+{emailError && <p style={{ color: "red"}}>{emailError}</p>} 
 
-          //onClick={() => {
-          //   navigate('/login');
-          //}}
-          >Register</button>
+<label class='goldfont slightpadding'>
+        Password: {""}
+         <input 
+         class='field'
+         placeholder='Create Password'
+         type='password'
+         value={password}
+         onChange={(e)=> 
+         setPassword(e.target.value)}/>
+      </label>
+    
+         {passwordError && <p style={{ color: "red"}}>{passwordError}</p>}
 
-        </form>
-      </div>
-    </>
-  );
+         <button  type='Submit' class='sleekbutton slightpadding' style=
+            {{width: "80px", height: "37px", padding: "10px", 
+            fontSize:"15px"}}
+           
+            //onClick={() => {
+             //   navigate('/login');
+            //}}
+            >Register</button>
+        
+ </form>
+ </div>
+         </>
+ );
 };
 
