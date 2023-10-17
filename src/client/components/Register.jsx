@@ -97,7 +97,7 @@ return (
             setEmail(email)
         }}>
           
-          <div>
+          <div class='goldfont slightpadding'>
             <input 
             type="radio"
             name="userType"
@@ -160,7 +160,7 @@ return (
     
          {passwordError && <p style={{ color: "red"}}>{passwordError}</p>}
 
-         <button  type='Submit' class='sleekbutton' style=
+         <button  type='Submit' class='sleekbutton slightpadding' style=
             {{width: "80px", height: "37px", padding: "10px", 
             fontSize:"15px"}}
            
