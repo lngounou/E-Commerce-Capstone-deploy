@@ -8,7 +8,8 @@ const Navbar = () => {
     const navigate = useNavigate();
     const logout = () => {
         sessionStorage.clear();
-        navigate('/login')
+        navigate('/login');
+        location.reload();
       }
 
     if (auth) {

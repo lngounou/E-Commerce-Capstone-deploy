@@ -95,7 +95,7 @@ const Checkout = () => {
                     <strong>Total:</strong> ${additionalCharges + totalPrice}
                 </div>
             </div>
-            <button onClick={handleFinishClick}>Finish</button>
+            <button className='sleekbutton slightmargin' onClick={handleFinishClick}>Finish</button>
         </div>
     );
 };
