@@ -6,8 +6,26 @@ import { useNavigate } from 'react-router-dom';
 export default function AllProducts() {
 
     const [products, setProducts] = useState([]);
+    // const [sortCriteria, setSortCriteria] = useState('name');
+    // const [sortDirection, setSortDirection] = useState('asc');
     const auth = sessionStorage.getItem('token');
     const navigate = useNavigate();
+
+// const sortProducts = () => {
+//     const sortedProducts = [...products];
+//     if (sortCriteria === 'name') {
+//         sortedProducts.sort((a, b) => {
+//             const nameA = a.name.toUpperCase();
+//             const nameB = b.name.toUpperCase(); 
+//             return sortDirection === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+//         });
+//     } else if (sortCriteria === 'price') {
+//         sortedProducts.sort((a, b) => {
+//             return sortDirection === 'asc' ? a.price - b.price : b.price - a.price;
+//         });
+//     }
+//     setProducts(sortedProducts);
+// };
 
     useEffect(() => {
         async function fetchAllProducts() {
