@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
@@ -14,25 +14,32 @@ import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import AuthProducts from './components/ProductsAuth';
 import CreateProduct from './components/CreateProduct';
+import UsersList from './components/UsersList';
+
 
 function App() {
 
   const auth = sessionStorage.getItem('token');
-
+const [users, SetUser] = useState("")
+console.log(users)
+useEffect(() => {}, [users])
   return (
     <>
-      <Navbar />
+      <Navbar  users= {users} SetUser={SetUser}/>
       <Routes>
 
         <Route path='/' element={<Home />} />
         <Route path='/addproduct' element={<Login />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/products' element={ auth ? <AuthProducts /> : <AllProducts />} />
+        <Route path='/login' element={<Login users= {users} SetUser={SetUser}/>} />
+        <Route path='/register' element={<Register users= {users} SetUser={SetUser} />} />
+        <Route path='/products' element={ auth ? <AuthProducts users= {users}/> : <AllProducts />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/createproduct' element={<CreateProduct />} />
+        <Route path='/userslist' element={<UsersList />} />
         <Route path='/products/:productId' element={<SingleProduct />} />
         <Route path="/checkout" element={<Checkout />} />
+        
+        
       </Routes>
     </>
   );

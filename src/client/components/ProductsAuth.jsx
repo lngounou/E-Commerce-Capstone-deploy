@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import AuthHoc from './AuthHOC';
 import Cart from './Cart';
 
-export default function AuthProducts() {
+export default function AuthProducts({users}) {
 
     const [products, setProducts] = useState([]);
     const auth = sessionStorage.getItem('token');
     const navigate = useNavigate();
+    const isAdmin = sessionStorage.getItem('isAdmin') === 'true'
 
     useEffect(() => {
         async function fetchAllProducts() {
@@ -24,6 +25,10 @@ export default function AuthProducts() {
         }
         fetchAllProducts();
     }, [])
+    useEffect (() => {
+   
+        console.log(users)
+    }, [users])
     async function addToCart(productId) {
         try {
             // Add a product to the cart using the '/api/cart/add' endpoint
@@ -49,7 +54,7 @@ export default function AuthProducts() {
             console.error('Error adding product to cart:', error);
         }
     };
-
+console.log(users)
     return (
         <div class='all-products-container homecontainer'>
             {products ?
@@ -61,7 +66,9 @@ export default function AuthProducts() {
                             <h2>Description: {product.description}</h2>
                             <h2>Price: {product.price}</h2>
                             <button class='sleekbutton productbutton' onClick={() => { navigate(`/products/${product.id}`) }}>Product Details</button>
-                            <button class='sleekbutton productbutton' onClick={() => { addToCart(product.id) }}>Add To Cart</button>
+                           <button class='sleekbutton productbutton' onClick={() => { addToCart(product.id) }}>Add To Cart</button>
+                           {isAdmin ? <button class='sleekbutton productbutton' onClick={() => { handleEdit(product.id) }}>Edit</button>: null}
+                         {isAdmin ?  <button class='sleekbutton productbutton' onClick={() => { handleDelete(product.id) }} >Delete</button>: null}
                         </div>)
                 }) : (<p>loadingProducts</p>)}
         </div>

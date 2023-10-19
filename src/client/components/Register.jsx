@@ -28,6 +28,8 @@ export default function Register() {
       setIsAdminError("Invalid Admin");
       return;
     } else {
+      //sessionStorage.setItem('admin', "true")
+      //console.log(sessionStorage.getItem('admin'),"This is inside register")
       setIsAdmin(true);
       setIsAdminError(null);
 

@@ -7,13 +7,13 @@ const { createCart, createCartItems } = require('./cart');
 
 const SALT_COUNT = 10;
 
-// const users = [
+
 //   {
 //     name: 'Test Test',
 //     email: 'test@example.com',
 //     password: 'pianopiano',
 //     isAdmin: false
-//   },
+//   },const users = [
 //   {
 //     name: 'Drin Chi',
 //     email: 'drin@example.com',
@@ -48,12 +48,9 @@ const SALT_COUNT = 10;
 //     name: 'Ilda',
 //     email: 'admin@gmail.com',
 //     password: 'fullstack',
-//     isAdmin: true
+//     isAdmin: false
 //   }
 // ]
-
-
-
 const generateUsers = (count) => {
   const users = [];
   for (let i = 0; i < count; i++) {
@@ -66,7 +63,6 @@ const generateUsers = (count) => {
   }
   return users;
 };
-
 const users = generateUsers(20);
 
 function generateProducts(count) {

@@ -30,14 +30,14 @@ const AuthHoc = (WrappedComponent) => {
                             setIsAuthenticated(true);
                         } else {
                             setIsAuthenticated(false);
-                            navigate('/login');
+                            //navigate('/login');
 
                         }
                     })
                     .catch((err) => {
                         console.log("error ",err)
                         setIsAuthenticated(false);
-                        navigate('/login');
+                        //navigate('/login');
 
                     });
             }

@@ -1,3 +1,5 @@
+
+const db = require('./db/client');
 const express = require('express');
 const usersRouter = express.Router();
 const { authenticateToken, requireAdmin, requireUser } = require('./utils.js');
@@ -36,7 +38,7 @@ const jwt = require('jsonwebtoken');
 //         }
 
 //         req.user = user;
-//         next();
+//         next()s
 //     });
 // }
 
@@ -74,12 +76,12 @@ usersRouter.post('/login', async (req, res, next) => {
         if (user) { 
             console.log('user', user)
 
-            const isAdmin = user.isAdmin;
+            const isAdmin = user.isadmin;
 
             const token = jwt.sign({
                 id: user.id,
                 email,
-                isAdmin: user.isAdmin,
+                isAdmin: user.isadmin,
 
 
             }, `${process.env.JWT_SECRET}`, {
@@ -92,7 +94,8 @@ usersRouter.post('/login', async (req, res, next) => {
                 token,
                 userId: user.id,
                 name: user.name,
-                isAdmin,
+                isAdmin: user.isadmin,
+                
 
             });
         } else {
