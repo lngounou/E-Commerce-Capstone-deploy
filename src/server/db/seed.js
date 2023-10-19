@@ -67,7 +67,7 @@ const generateUsers = (count) => {
   return users;
 };
 
-const users = generateUsers(50);
+const users = generateUsers(20);
 
 function generateProducts(count) {
   const products = [];

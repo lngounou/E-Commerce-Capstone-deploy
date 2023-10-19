@@ -1,4 +1,5 @@
 const { Pool } = require('pg');
+const db = require('./client')
 
 const pool = new Pool({
   user: process.env.USER || 'localhost',
@@ -16,7 +17,7 @@ const createProduct = async (product) => {
   };
 
   try {
-    const result = await pool.query(query);
+    const result = await db.query(query);
     return result.rows[0];
   } catch (error) {
     throw error;
