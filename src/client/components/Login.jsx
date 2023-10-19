@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({user, SetUser}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(true);
+  //const [isAdmin, setIsAdmin] = useState(true);
 
 
   const handleEmailChange = (e) => {
@@ -31,20 +31,25 @@ const Login = () => {
         })
       });
       const result = await response.json();
-      //console.log (result)
+      console.log (result)
       setMessage(result.message);
       if (!response.ok) {
         throw (result)
       }
       sessionStorage.setItem('token', result.token)
       sessionStorage.getItem('token', result.token)
-      if (result.isAdmin === true) {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-      } console.log(result)
+      sessionStorage.setItem('isAdmin', result.isAdmin)
+
+      sessionStorage.getItem('isAdmin', result.isAdmin)
+       SetUser(result)
+      
+      // if (result.isAdmin === true) {
+      //   setIsAdmin(true);
+      //  } else {
+      //    setIsAdmin(false);
+      // } console.log(result)
      
-      navigate('/products/');
+      navigate('/products');
       setEmail('');
       setPassword('');
       location.reload();

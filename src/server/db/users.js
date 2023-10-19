@@ -27,7 +27,7 @@ const getUser = async({email, password}) => {
     try {
         const user = await getUserByEmail(email);
         if(!user) return;
-       user.isAdmin = user.isAdmin
+       //user.isAdmin = user.isAdmin
         const hashedPassword = user.password;
         const passwordsMatch = await bcrypt.compare(password, hashedPassword);
         console.log (password)
@@ -64,10 +64,33 @@ const getAllUsers = async () => {
         throw error;
     }
 };
+async function getUserById(userId) {
+    try {
+      const {
+        rows: [user],
+      } = await db.query(`
+          SELECT id, name, email, password, isAdmin
+          FROM users
+          WHERE id=${userId}
+        `)
+  
+      if (!user) {
+        throw {
+          name: 'UserNotFoundError',
+          message: 'A user with that id does not exist',
+        }
+      }
+  
+      return user
+    } catch (error) {
+      throw error
+    }
+  }
 
 module.exports = {
     createUser,
     getUser,
     getUserByEmail,
-    getAllUsers
+    getAllUsers,
+    getUserById
 };

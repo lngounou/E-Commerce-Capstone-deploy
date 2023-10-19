@@ -2,45 +2,39 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 
+
 export default function CreateProduct() {
 
     const [error, setError] = useState(null);
+    const isAdmin = sessionStorage.getItem('admin');
     const auth = sessionStorage.getItem('token');
-    //crossOriginIsolated.log('token from login(storage):', token);
     const navigate = useNavigate();
-    //const [isAdmin, setIsAdmin] = useState("");
-    const [deleteProduct, setDeleteProduct] = useState("");
-    //const auth = useSelector((state) => state.auth);
-    //if (!auth.isAdmin) return <p>Access denied. Not an Admin!</p>
-
+   
+    
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [img_url, setImg_url] = useState("");
-    //const [isAdmin, setIsAdmin] = useState(true);
+  
 
     async function handleSubmit(event) {
       event.preventDefault() 
-      //if (!auth.isAdmin) return <p>Access denied. Not an Admin!</p>;
-      
-        
-
+     console.log('post')
 
 
 
         try {
-          if (isAdmin === 'true') {
-
-      const response = await fetch("http://localhost:3000/api/products/", {
+          
+    const response = await fetch("http://localhost:3000/api/products/", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-         // Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+          Authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },
         body: JSON.stringify({ name, description, price, img_url }),
 
-      })}
+      })
       const result = await response.json();
       console.log(result);
       toast("New Product is successfully added.", {
@@ -96,7 +90,7 @@ export default function CreateProduct() {
         onChange={(e) => setImg_url(e.target.value)}
       />
 
-      <button className="create"  class='sleekbutton'>Create</button>
+      <button className="create"  class='sleekbutton' type='submit'>Create</button>
     </form>
   )
             }
