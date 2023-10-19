@@ -7,67 +7,63 @@ const { createCart, createCartItems } = require('./cart');
 
 const SALT_COUNT = 10;
 
-const users = [
-  {
-    name: 'Test Test',
-    email: 'test@example.com',
-    password: 'pianopiano',
-    isAdmin: false
-  },
-  {
-    name: 'Drin Chi',
-    email: 'drin@example.com',
-    password: 'testingpass',
-    isAdmin: false
-  },
-  {
-    name: 'Romeo Ro',
-    email: 'roro@example.com',
-    password: 'password0123',
-    isAdmin: false
-  },
-  {
-    name: 'North West',
-    email: 'nowe@example.com',
-    password: 'mentosgum',
-    isAdmin: false
-  },
-  {
-    name: 'Kresha Al',
-    email: 'kresha@example.com',
-    password: 'albanian',
-    isAdmin: false
-  },
-  {
-    name: 'Trader Joe',
-    email: 'market@example.com',
-    password: 'supermarket',
-    isAdmin: false
-  },
-  {
-    name: 'Ilda',
-    email: 'admin@gmail.com',
-    password: 'fullstack',
-    isAdmin: false
-  }
-]
 
-
-
-// const generateUsers = (count) => {
-//   const users = [];
-//   for (let i = 0; i < count; i++) {
-//     const user = {
-//       name: faker.person.fullName(),
-//       email: faker.internet.email(),
-//       password: faker.internet.password(),
-//     };
-//     users.push(user);
+//   {
+//     name: 'Test Test',
+//     email: 'test@example.com',
+//     password: 'pianopiano',
+//     isAdmin: false
+//   },const users = [
+//   {
+//     name: 'Drin Chi',
+//     email: 'drin@example.com',
+//     password: 'testingpass',
+//     isAdmin: false
+//   },
+//   {
+//     name: 'Romeo Ro',
+//     email: 'roro@example.com',
+//     password: 'password0123',
+//     isAdmin: false
+//   },
+//   {
+//     name: 'North West',
+//     email: 'nowe@example.com',
+//     password: 'mentosgum',
+//     isAdmin: false
+//   },
+//   {
+//     name: 'Kresha Al',
+//     email: 'kresha@example.com',
+//     password: 'albanian',
+//     isAdmin: false
+//   },
+//   {
+//     name: 'Trader Joe',
+//     email: 'market@example.com',
+//     password: 'supermarket',
+//     isAdmin: false
+//   },
+//   {
+//     name: 'Ilda',
+//     email: 'admin@gmail.com',
+//     password: 'fullstack',
+//     isAdmin: false
 //   }
-//   return users;
-// };
-
-//const users = generateUsers(50);
+// ]
+const generateUsers = (count) => {
+  const users = [];
+  for (let i = 0; i < count; i++) {
+    const user = {
+      name: faker.person.fullName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    };
+    users.push(user);
+  }
+  return users;
+};
+const users = generateUsers(20);
 
 function generateProducts(count) {
   const products = [];
@@ -200,5 +196,5 @@ const seedDatabase = async (connection) => {
   }
 };
 
-// seedDatabase();
+seedDatabase();
 module.exports = { seedDatabase }

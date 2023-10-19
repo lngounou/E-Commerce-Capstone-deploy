@@ -1,12 +1,13 @@
 const { Pool } = require('pg');
+const db = require('./client')
 
-const pool = new Pool({
-  user: process.env.USER || 'localhost',
-  password: process.env.PASSWORD || 'password',
-  host: 'localhost',
-  database: 'commerce',
-  port: 5432,
-});
+// const pool = new Pool({
+//   user: process.env.USER || 'localhost',
+//   password: process.env.PASSWORD || 'password',
+//   host: 'localhost',
+//   database: 'commerce',
+//   port: 5432,
+// });
 
 const createProduct = async (product) => {
   const { name, description, price, img_url } = product;
@@ -16,7 +17,7 @@ const createProduct = async (product) => {
   };
 
   try {
-    const result = await pool.query(query);
+    const result = await db.query(query);
     return result.rows[0];
   } catch (error) {
     throw error;
@@ -25,7 +26,7 @@ const createProduct = async (product) => {
 
 const getProducts = async () => {
   try {
-    const result = await pool.query('SELECT * FROM products');
+    const result = await db.query('SELECT * FROM products');
     return result.rows;
   } catch (error) {
     throw error;
@@ -34,7 +35,7 @@ const getProducts = async () => {
 
 const getProductById = async (productId) => {
   try {
-    const result = await pool.query('SELECT * FROM products WHERE id = $1', [productId]);
+    const result = await db.query('SELECT * FROM products WHERE id = $1', [productId]);
     return result.rows[0];
   } catch (error) {
     throw error;
@@ -49,7 +50,7 @@ const updateProduct = async (productId, updatedProduct) => {
   };
 
   try {
-    const result = await pool.query(query);
+    const result = await db.query(query);
     return result.rows[0];
   } catch (error) {
     throw error;
@@ -58,7 +59,7 @@ const updateProduct = async (productId, updatedProduct) => {
 
 const deleteProduct = async (productId) => {
   try {
-    const result = await pool.query('DELETE FROM products WHERE id = $1 RETURNING *', [productId]);
+    const result = await db.query('DELETE FROM products WHERE id = $1 RETURNING *', [productId]);
     return result.rows[0];
   } catch (error) {
     throw error;

@@ -13,7 +13,7 @@ export default function AllProducts() {
 
 const sortProducts = () => {
     const sortedProducts = [...products];
-    if (sortCriteria === 'name' && sortDirection === 'asc') {
+    if (sortCriteria === 'name') {
         sortedProducts.sort((a, b) => {
             const nameA = a.name.toUpperCase();
             const nameB = b.name.toUpperCase(); 
@@ -54,7 +54,7 @@ const sortProducts = () => {
                     
                     <label>Sort direction:</label>
                     
-                    <select onChange={(e) => setSortCriteria(e.target.value)}>
+                    <select onChange={(e) => setSortDirection(e.target.value)}>
                         <option value = "asc">Ascending</option>
                         <option value = "desc">Descending</option>
                     </select>
