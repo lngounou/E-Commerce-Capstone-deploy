@@ -200,5 +200,5 @@ const seedDatabase = async (connection) => {
   }
 };
 
-// seedDatabase();
+seedDatabase();
 module.exports = { seedDatabase }
