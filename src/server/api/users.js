@@ -1,3 +1,4 @@
+const db = require('./client');
 const express = require('express');
 const usersRouter = express.Router();
 const { authenticateToken, requireAdmin, requireUser } = require('./utils.js');
@@ -11,13 +12,13 @@ const {
 
 const { Pool } = require('pg');
 
-const pool = new Pool({
-    user: process.env.USER || 'localhost',
-    password: process.env.PASSWORD || 'password',
-    host: 'localhost',
-    database: 'commerce',
-    port: 5432,
-});
+// const pool = new Pool({
+//     user: process.env.USER || 'localhost',
+//     password: process.env.PASSWORD || 'password',
+//     host: 'localhost',
+//     database: 'commerce',
+//     port: 5432,
+// });
 
 const jwt = require('jsonwebtoken');
 // const { JWT_SECRET = 'somesecretvalue' } = process.env;
@@ -42,7 +43,7 @@ const jwt = require('jsonwebtoken');
 
 usersRouter.get('/protected', authenticateToken, async (req, res) => {
     const user = req.user;
-    let userResult = await pool.query({ text: 'select * from users where email = $1', values: [user.email] })
+    let userResult = await db.query({ text: 'select * from users where email = $1', values: [user.email] })
     // console.log("user ",userResult)
     res.json({ message: 'This is a protected route', isAdmin: userResult.rows[0].isAdmin });
 });
