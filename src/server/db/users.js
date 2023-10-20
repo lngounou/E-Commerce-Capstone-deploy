@@ -1,11 +1,20 @@
 const db = require('./client')
 const bcrypt = require('bcrypt');
 const SALT_COUNT = 10;
+const { Pool } = require("pg");
+
+const pool = new Pool({
+  user: process.env.USER || "localhost",
+  password: process.env.PASSWORD || "password",
+  host: "localhost",
+  database: "commerce",
+  port: 5432,
+});
 
 const createUser = async({ name='first last', email, password, isAdmin }) => {
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     try {
-        const { rows: [user] } = await db.query(`
+        const { rows: [user] } = await pool.query(`
         INSERT INTO users(name, email, password, isAdmin)
         VALUES($1, $2, $3, $4)
         ON CONFLICT (email) DO NOTHING
@@ -44,7 +53,7 @@ const getUser = async({email, password}) => {
 
 const getUserByEmail = async(email) => {
     try {
-        const { rows: [ user ] } = await db.query(`
+        const { rows: [ user ] } = await pool.query(`
         SELECT * 
         FROM users
         WHERE email=$1;`, [ email ]);
@@ -58,7 +67,7 @@ const getUserByEmail = async(email) => {
 
 const getAllUsers = async () => {
     try {
-        const result = await db.query('SELECT * FROM users');
+        const result = await pool.query('SELECT * FROM users');
         return result.rows;
     } catch (error) {
         throw error;
