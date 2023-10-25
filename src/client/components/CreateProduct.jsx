@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 export default function CreateProduct() {
 
     const [error, setError] = useState(null);
-    const isAdmin = sessionStorage.getItem('admin');
+    const isAdmin = sessionStorage.getItem('isAdmin');
     const auth = sessionStorage.getItem('token');
     const navigate = useNavigate();
    
@@ -20,7 +20,7 @@ export default function CreateProduct() {
 
     async function handleSubmit(event) {
       event.preventDefault() 
-     console.log('post')
+     //console.log('post')
 
 
 
@@ -30,7 +30,7 @@ export default function CreateProduct() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+          //Authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },
         body: JSON.stringify({ name, description, price, img_url }),
 
@@ -90,7 +90,7 @@ export default function CreateProduct() {
         onChange={(e) => setImg_url(e.target.value)}
       />
 
-      <button className="create"  class='sleekbutton' type='submit'>Create</button>
+      <button className="create"  class='sleekbutton' onClick={(e)=>handleSubmit(e)}>Create</button>
     </form>
   )
             }

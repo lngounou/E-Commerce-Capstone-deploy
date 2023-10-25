@@ -1,6 +1,8 @@
 const { Pool } = require('pg');
 const db = require('./client')
 
+
+
 const pool = new Pool({
   user: process.env.USER || 'localhost',
   password: process.env.PASSWORD || 'password',
@@ -8,7 +10,6 @@ const pool = new Pool({
   database: 'commerce',
   port: 5432,
 });
-
 const createProduct = async (product) => {
   const { name, description, price, img_url } = product;
   const query = {

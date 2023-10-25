@@ -7,13 +7,13 @@ const { createCart, createCartItems } = require('./cart');
 
 const SALT_COUNT = 10;
 
-
+// const users = [
 //   {
 //     name: 'Test Test',
 //     email: 'test@example.com',
 //     password: 'pianopiano',
 //     isAdmin: false
-//   },const users = [
+//   },
 //   {
 //     name: 'Drin Chi',
 //     email: 'drin@example.com',

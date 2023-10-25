@@ -1,6 +1,6 @@
 
-const db = require('./db/client');
 const express = require('express');
+//const db = require('./client');
 const usersRouter = express.Router();
 const { authenticateToken, requireAdmin, requireUser } = require('./utils.js');
 

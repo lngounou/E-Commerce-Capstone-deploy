@@ -1,15 +1,16 @@
 const db = require('./client')
 const bcrypt = require('bcrypt');
 const SALT_COUNT = 10;
-const { Pool } = require("pg");
+
+const { Pool } = require('pg');
 
 const pool = new Pool({
-  user: process.env.USER || "localhost",
-  password: process.env.PASSWORD || "password",
-  host: "localhost",
-  database: "commerce",
-  port: 5432,
-});
+    user: process.env.USER || 'localhost',
+    password: process.env.PASSWORD || 'password',
+    host: 'localhost',
+    database: 'commerce',
+    port: 5432,
+  });
 
 const createUser = async({ name='first last', email, password, isAdmin }) => {
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);

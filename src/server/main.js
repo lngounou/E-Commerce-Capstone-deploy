@@ -6,13 +6,13 @@ const app = express();
 const client = require("./db/client");
 const { seedDatabase } = require("./db/seed");
 
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
 
 const db = require("./db/client");
-
+db.connect();
 
 const apiRouter = require("./api");
 app.use("/api", apiRouter);
@@ -23,11 +23,11 @@ router.listen(app, 3000, async () => {
     values: [],
   });
   console.log("users : ", users.rows.length);
-  // console.log("users : ",users)
-  if (users.rows.length === 0) {
+   //console.log("users : ",users)
+  if (users.rows.length === 0){
     console.log("seeding...");
-    db.connect();
     await seedDatabase(false);
+    //db.connect()
   }
   console.log("Server is listening on port 3000...");
 });
