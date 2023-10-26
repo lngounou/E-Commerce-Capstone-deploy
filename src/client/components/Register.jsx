@@ -92,7 +92,7 @@ export default function Register() {
   return (
     <>
       <div>
-        <h2 class='goldfont slightpadding'>Don't have an account? Sign up below.</h2>
+        <h2 className='goldfont slightpadding'>Don't have an account? Sign up below.</h2>
         <form
           method="POST"
           onSubmit={registerUser}
@@ -100,7 +100,7 @@ export default function Register() {
             setEmail(email)
         }}>
           
-          <div class='goldfont slightpadding'>
+          <div className='goldfont slightpadding'>
             <input 
             type="radio"
             name="userType"
@@ -122,15 +122,15 @@ export default function Register() {
               <label>Secret Key</label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 placeholder="Secret Key"
                 onChange={(e) => setSecretKey(e.target.value)} />
             </div> : null}
 
-          <label class='goldfont slightpadding slightmargin'>
+          <label className='goldfont slightpadding slightmargin'>
             Name: {""}
             <input
-              class='field'
+              className='field'
               placeholder='Enter Name'
               value={name}
 
@@ -138,10 +138,10 @@ export default function Register() {
                 setName(e.target.value)} />
           </label>
 
-          <label class='goldfont slightpadding slightmargin'>
+          <label className='goldfont slightpadding slightmargin'>
             Email: {""}
             <input
-              class='field'
+              className='field'
               placeholder='Enter Email'
               value={email}
               type='email'
@@ -150,10 +150,10 @@ export default function Register() {
           </label>
           {emailError && <p style={{ color: "red" }}>{emailError}</p>}
 
-          <label class='goldfont slightpadding slightmargin'>
+          <label className='goldfont slightpadding slightmargin'>
             Password: {""}
             <input
-         class='field'
+         className='field'
          placeholder='Create Password'
          type='password'
          value={password}
@@ -163,7 +163,7 @@ export default function Register() {
     
          {passwordError && <p style={{ color: "red"}}>{passwordError}</p>}
 
-         <button  type='Submit' class='sleekbutton slightpadding' style=
+         <button  type='Submit' className='sleekbutton slightpadding' style=
             {{width: "80px", height: "37px", padding: "10px", 
             fontSize:"15px"}}
            
