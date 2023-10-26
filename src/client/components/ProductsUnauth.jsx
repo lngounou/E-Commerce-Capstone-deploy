@@ -68,7 +68,7 @@ const sortProducts = () => {
                         <h2>Product: {product.name}</h2>
                         <h2>Description: {product.description}</h2>
                         <h2>Price: {product.price}</h2>
-                        <button class='sleekbutton productbutton' onClick={() => {navigate(`/products/${product.id}`)}}>Product Details</button>
+                        <button className='sleekbutton productbutton' onClick={() => {navigate(`/products/${product.id}`)}}>Product Details</button>
                     </div> )})}
                     </div>
                 </div>

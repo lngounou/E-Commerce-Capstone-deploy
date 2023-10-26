@@ -11,20 +11,31 @@ app.use(bodyParser.json());
 
 app.use(express.static("public"));
 
-const db = require("./db/client");
-db.connect();
+const db2 = require("./db/client");
+
+const { Pool } = require('pg');
+
+const pool = new Pool({
+    user: process.env.USER || 'localhost',
+    password: process.env.PASSWORD || 'password',
+    host: 'localhost',
+    database: 'commerce',
+    port: 5432,
+  });
+
+// db.connect();
 
 const apiRouter = require("./api");
 app.use("/api", apiRouter);
 
 router.listen(app, 3000, async () => {
-  let users = await client.query({
-    text: "select * from users;",
+  let user = await pool.query({
+    text: "select * from user;",
     values: [],
   });
-  console.log("users : ", users.rows.length);
+  console.log("users : ", user.rows.length);
    //console.log("users : ",users)
-  if (users.rows.length === 0){
+  if (user.rows.length === 0){
     console.log("seeding...");
     await seedDatabase(false);
     // db.connect();

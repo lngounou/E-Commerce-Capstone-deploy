@@ -171,7 +171,7 @@ const seedDatabase = async (connection) => {
   try {
     // if (connection === true){
       console.log("connecting...",connection)
-      // db.connect();
+      db.connect();
     // }
     await dropTables();
     await createTables();
@@ -192,7 +192,7 @@ const seedDatabase = async (connection) => {
     console.error('Error seeding database:', err);
   } finally {
     console.log("ending connection...")
-    // db.end()
+    db.end();
   }
 };
 
