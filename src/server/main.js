@@ -27,7 +27,7 @@ router.listen(app, 3000, async () => {
   if (users.rows.length === 0){
     console.log("seeding...");
     await seedDatabase(false);
-    //db.connect()
+    // db.connect();
   }
   console.log("Server is listening on port 3000...");
 });

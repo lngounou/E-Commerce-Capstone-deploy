@@ -16,8 +16,8 @@ const Home = () => {
                     <div className="largefont">Bloom Market</div>
                     <h2>Find unique, high-quality items for sale.</h2>
                     <br></br>
-                    <button class="sleekbutton slightmargin" onClick={() => {navigate(`/register`)}}>Register for a new account</button>
-                    <button class="sleekbutton slightmargin" onClick={() => {navigate(`/login`)}}>Sign into an existing account</button>
+                    <button className="sleekbutton slightmargin" onClick={() => {navigate(`/register`)}}>Register for a new account</button>
+                    <button className="sleekbutton slightmargin" onClick={() => {navigate(`/login`)}}>Sign into an existing account</button>
 
                 </div>
             </div>

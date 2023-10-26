@@ -56,19 +56,19 @@ export default function AuthProducts({users}) {
     };
 console.log(users)
     return (
-        <div class='all-products-container homecontainer'>
+        <div className='all-products-container homecontainer'>
             {products ?
                 products.map((product) => {
                     return (
-                        <div key={product.id} style={{ cursor: "pointer" }} class='productcard'  >
+                        <div key={product.id} style={{ cursor: "pointer" }} className='productcard'  >
                             <img src={product.img_url} alt="product image" width="300rem" />
                             <h2>Product: {product.name}</h2>
                             <h2>Description: {product.description}</h2>
                             <h2>Price: {product.price}</h2>
-                            <button class='sleekbutton productbutton' onClick={() => { navigate(`/products/${product.id}`) }}>Product Details</button>
-                           <button class='sleekbutton productbutton' onClick={() => { addToCart(product.id) }}>Add To Cart</button>
-                           {isAdmin ? <button class='sleekbutton productbutton' onClick={() => { handleEdit(product.id) }}>Edit</button>: null}
-                         {isAdmin ?  <button class='sleekbutton productbutton' onClick={() => { handleDelete(product.id) }} >Delete</button>: null}
+                            <button className='sleekbutton productbutton' onClick={() => { navigate(`/products/${product.id}`) }}>Product Details</button>
+                           <button className='sleekbutton productbutton' onClick={() => { addToCart(product.id) }}>Add To Cart</button>
+                           {isAdmin ? <button className='sleekbutton productbutton' onClick={() => { handleEdit(product.id) }}>Edit</button>: null}
+                         {isAdmin ?  <button className='sleekbutton productbutton' onClick={() => { handleDelete(product.id) }} >Delete</button>: null}
                         </div>)
                 }) : (<p>loadingProducts</p>)}
         </div>
